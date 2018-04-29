@@ -7,13 +7,18 @@ module.exports = (req, res) => {
       str += d;
     });
     re.on('end', () => {
+        const availableRoomsSource = str.substr(0, str.search(/List all MKW rooms\.<\/a><br\/>/));
         let result = {
             status: 200,
             totalAvailable: {
-                amount: str.split(/<img src="\/images\/watch-room-24x16\.png" *class="text-img"><\/a>/).length-1,
+                worldwides: availableRoomsSource.split(/Worldwide *room/i).length-1,
+                continentals: availableRoomsSource.split(/Continental *room/i).length-1,
+                privates: availableRoomsSource.split(/Private *room/).length-1
             },
             total: {
-                amount: str.split(/friend code/).length-1
+                worldwides: str.split(/worldwide room/i).length-1,
+                continentals: str.split(/continental room/i).length-1,
+                privates: str.split(/private room/i).length-1
             }
         };
       res.json(result);
