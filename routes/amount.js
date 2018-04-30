@@ -1,27 +1,28 @@
 const { get } = require('https'); // will be used for requests
+const { db } = require('../Base');
 
+/**
+ * Amount endpoint;
+ *
+ * @param req Request object (express)
+ * @param res Response object (express)
+ */
 module.exports = (req, res) => {
-  let str = '';
-  get('https://wiimmfi.de/mkw/list', (re) => {
-    re.on('data', d => {
-      str += d;
-    });
-    re.on('end', () => {
-        const availableRoomsSource = str.substr(0, str.search(/List all MKW rooms\.<\/a><br\/>/));
-        let result = {
-            status: 200,
-            totalAvailable: {
-                worldwides: availableRoomsSource.split(/Worldwide *room/i).length-1,
-                continentals: availableRoomsSource.split(/Continental *room/i).length-1,
-                privates: availableRoomsSource.split(/Private *room/).length-1
-            },
+    db.get('select * from totalAmount').then(result => {
+        const re = {
             total: {
-                worldwides: str.split(/worldwide room/i).length-1,
-                continentals: str.split(/continental room/i).length-1,
-                privates: str.split(/private room/i).length-1
-            }
+                worldwides: result.totalWWs,
+                continentals: result.totalContinentals,
+                privates: result.totalPrivates
+            },
+            available: {
+                worldwides: result.WWs,
+                continentals: result.continentals,
+                privates: result.privates
+            },
+            lastCheck: result.lastEdit,
+            status: 200
         };
-      res.json(result);
+        res.json(re);
     });
-  });
-}
+};
