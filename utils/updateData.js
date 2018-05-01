@@ -19,17 +19,19 @@ module.exports = (db) => {
                 totalAvailable: {
                     worldwides: availableRoomsSource.split(/Worldwide *room/i).length-1,
                     continentals: availableRoomsSource.split(/Continental *room/i).length-1,
-                    privates: availableRoomsSource.split(/Private *room/).length-1
+                    privates: availableRoomsSource.split(/Private *room/).length-1,
+                    players: availableRoomsSource.split(/<td>.{1,28}<\/td>/).length-1
                 },
                 total: {
                     worldwides: str.split(/worldwide room/i).length-1,
                     continentals: str.split(/continental room/i).length-1,
-                    privates: str.split(/private room/i).length-1
-                }
+                    privates: str.split(/private room/i).length-1,
+                    players: str.split(/<td>.{1,28}<\/td>/).length-1
+                },
             };
             db.get('select * from totalAmount').then(r => {
-                if(!r) return db.run(`insert into totalAmount values ('${result.total.worldwides}', '${result.total.continentals}', '${result.total.privates}', '${result.totalAvailable.worldwides}', '${result.totalAvailable.continentals}', '${result.totalAvailable.privates}', '${Date.now()}')`).catch(console.log);
-                else db.run(`update totalAmount set totalWWs='${result.total.worldwides || 0}', totalContinentals='${result.total.continentals || 0}', totalPrivates='${result.total.privates || 0}', WWs='${result.totalAvailable.worldwides || 0}', continentals='${result.totalAvailable.continentals || 0}', privates='${result.totalAvailable.privates || 0}', lastEdit='${Date.now()}'`).catch(console.log);
+                if(!r) return db.run(`insert into totalAmount values ('${result.total.worldwides}', '${result.total.continentals}', '${result.total.privates}', '${result.totalAvailable.worldwides}', '${result.totalAvailable.continentals}', '${result.totalAvailable.privates}', '${Date.now()}', '${result.totalAvailable.players}', '${result.total.players}')`).catch(console.log);
+                else db.run(`update totalAmount set totalWWs='${result.total.worldwides || 0}', totalContinentals='${result.total.continentals || 0}', totalPrivates='${result.total.privates || 0}', WWs='${result.totalAvailable.worldwides || 0}', continentals='${result.totalAvailable.continentals || 0}', privates='${result.totalAvailable.privates || 0}', lastEdit='${Date.now()}', players='${result.totalAvailable.players}', totalPlayers='${result.total.players}'`).catch(console.log);
             });
         });
     });
