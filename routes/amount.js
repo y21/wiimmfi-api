@@ -13,12 +13,14 @@ module.exports = (req, res) => {
             total: {
                 worldwides: result.totalWWs,
                 continentals: result.totalContinentals,
-                privates: result.totalPrivates
+                privates: result.totalPrivates,
+                players: result.totalPlayers
             },
             available: {
                 worldwides: result.WWs,
                 continentals: result.continentals,
-                privates: result.privates
+                privates: result.privates,
+                players: result.players
             },
             lastCheck: result.lastEdit,
             status: 200
