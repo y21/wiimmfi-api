@@ -48,14 +48,23 @@ module.exports = (db) => {
                 if(typeof r === 'undefined') return db.run('CREATE TABLE "totalAmount" ( `totalWWs` TEXT, `totalContinentals` TEXT, `totalPrivates` TEXT, `WWs` TEXT, `continentals` TEXT, `privates` TEXT, `lastEdit` TEXT, `players` TEXT, `totalPlayers` TEXT )');
                 else if(r.length == 0) return db.run(`insert into totalAmount values ('${result.total.worldwides}', '${result.total.continentals}', '${result.total.privates}', '${result.totalAvailable.worldwides}', '${result.totalAvailable.continentals}', '${result.totalAvailable.privates}', '${Date.now()}', '${result.totalAvailable.players}', '${result.total.players}')`).catch(console.log);
                 else db.run(`update totalAmount set totalWWs='${result.total.worldwides || 0}', totalContinentals='${result.total.continentals || 0}', totalPrivates='${result.total.privates || 0}', WWs='${result.totalAvailable.worldwides || 0}', continentals='${result.totalAvailable.continentals || 0}', privates='${result.totalAvailable.privates || 0}', lastEdit='${Date.now()}', players='${result.totalAvailable.players}', totalPlayers='${result.total.players}'`).catch(console.log);
-            }).catch(console.log);
+            }).catch(error => {
+                if(error.toString().includes('no such table: totalAmount')){
+                    return db.run('CREATE TABLE "totalAmount" ( `totalWWs` TEXT, `totalContinentals` TEXT, `totalPrivates` TEXT, `WWs` TEXT, `continentals` TEXT, `privates` TEXT, `lastEdit` TEXT, `players` TEXT, `totalPlayers` TEXT )');
+                }
+                else console.log(error.toString());
+            });
 
             // Regions Queries
             db.all('select * from region_amount').then(r => {
-                if(typeof r === 'undefined') return db.run('CREATE TABLE `region_amount` ( `eur` INTEGER, `jap` INTEGER, `ctgp` INTEGER, `ame` INTEGER )');
-                else if(r.length == 0) return db.run(`insert into region_amount values('${result.eur}', '${result.jap}', '${result.ctgp}', '${result.ame}')`);
+                if(r.length == 0) return db.run(`insert into region_amount values('${result.eur}', '${result.jap}', '${result.ctgp}', '${result.ame}')`);
                 else db.run(`update region_amount set eur='${result.eur}', jap='${result.jap}', ctgp='${result.ctgp}', ame='${result.ame}'`);
-            }).catch(console.log);
+            }).catch(error => {
+                if(error.toString().includes('no such table: region_amount')){
+                    return db.run('CREATE TABLE `region_amount` ( `eur` INTEGER, `jap` INTEGER, `ctgp` INTEGER, `ame` INTEGER )');
+                }
+                else console.log(error.toString());
+            });
         });
     });
 };
