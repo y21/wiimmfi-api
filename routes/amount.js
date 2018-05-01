@@ -1,4 +1,3 @@
-const { get } = require('https'); // will be used for requests
 const { db } = require('../Base');
 
 /**
