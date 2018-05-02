@@ -3,7 +3,8 @@ Public API to get information about mkwii rooms<br/>
 <a href="https://wiimmfi.glitch.me/">Demo</a> | <a href="https://wiimmfi.de/mkw/list">Room list</a>
 
 ## Notice
-This is an **unofficial** API and is **not** affiliated with wiimmfi. Provided data *can* be inaccurate or wrong because of frontend code modifications, but this should not happen often.
+This is an **unofficial** API and is **not** affiliated with wiimmfi. Provided data *can* be inaccurate or wrong because of frontend code modifications, but this should not happen often.<br/>
+The official wii online service <a href="https://wiimmfi.de/">wiimmfi</a> was made by Leseratte and Wiimm! 
 
 ### Code
 This project was written in javascript and uses the web framework express. It uses nodejs for backend code such as running the webserver.
