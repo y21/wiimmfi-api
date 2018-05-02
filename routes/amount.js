@@ -10,10 +10,10 @@ module.exports = (req, res) => {
     db.get('select * from totalAmount').then(result => {
         const re = {
             available: {
-                worldwides: result.totalWWs,
-                continentals: result.totalContinentals,
-                privates: result.totalPrivates,
-                players: result.totalPlayers
+                worldwides: result.WWs,
+                continentals: result.continentals,
+                privates: result.privates,
+                players: result.players
             },
             lastCheck: result.lastEdit,
             status: 200
