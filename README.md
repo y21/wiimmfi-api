@@ -22,9 +22,7 @@ All endpoints will probably be a bit slow because of the extremely huge html sou
 ### amount
 > Format: JSON
 
-| Parameter | Max/Min length | Default value 
-|-------------|:-------------:| -----:
-| /           | /             |   /
+Parameters: *none*
 
 Description: This endpoint returns the amount of available worldwides, continentals, privates, total worldwides, total continentals, tital privates, total players and players in available rooms.
 #### Example Response
@@ -49,9 +47,8 @@ Description: This endpoint returns the amount of available worldwides, continent
 
 ### regions
 > Format: JSON
-| Parameter | Max/Min length | Default value 
-|-------------|:-------------:| -----:
-| /           | /             |   /
+
+Parameters: *none*
 
 Description: This endpoint returns the amount of players logged in for each region which can be either CTGP, Jap/0, Ame/1 or Eur/2.
 ### Example Response
