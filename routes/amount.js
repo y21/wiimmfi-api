@@ -9,17 +9,11 @@ const { db } = require('../Base');
 module.exports = (req, res) => {
     db.get('select * from totalAmount').then(result => {
         const re = {
-            total: {
+            available: {
                 worldwides: result.totalWWs,
                 continentals: result.totalContinentals,
                 privates: result.totalPrivates,
                 players: result.totalPlayers
-            },
-            available: {
-                worldwides: result.WWs,
-                continentals: result.continentals,
-                privates: result.privates,
-                players: result.players
             },
             lastCheck: result.lastEdit,
             status: 200
