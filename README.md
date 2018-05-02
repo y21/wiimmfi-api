@@ -42,3 +42,20 @@ Description: This endpoint returns the amount of available worldwides, continent
     "status": 200
 }
 ```
+
+### regions
+> Format: JSON
+| Parameter | Max/Min length | Default value 
+|-------------|:-------------:| -----:
+| /           | /             |   /
+
+Description: This endpoint returns the amount of players logged in for each region which can be either CTGP, Jap/0, Ame/1 or Eur/2.
+### Example Response
+```json
+{
+    "ctgp": 18,
+    "eur": 52,
+    "jap": 3,
+    "ame": 24
+}
+```
