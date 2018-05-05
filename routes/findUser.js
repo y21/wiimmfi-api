@@ -24,7 +24,7 @@ module.exports = (req, res) => {
                     VR: (userMatch[0] || []).filter(e=>/\d{4}/g.test(e)).sort((a,b)=>str.indexOf(a)-str.indexOf(b))[1],
                     BR: (userMatch[0] || []).filter(e=>/\d{4}/g.test(e)).sort((a,b)=>str.indexOf(a)-str.indexOf(b))[0],
                     loginRegion: (userMatch[0] || [])[2],
-                    gameType: (userMatch[0] || []).find(e=>e==='vs') ? "versus" : "battle",
+                    gameType: (userMatch[0] || []).find(e=>e.includes('vs')) ? "versus" : "battle",
                     connectionFail: (userMatch[0] || []).find(e=>/\d\.\d{2}$/.test(e)) ? userMatch[0].find(e=>/\d\.\d{2}$/.test(e)).substr(userMatch[0].find(e=>/\d\.\d{2}$/.test(e)).search(/\d\.\d{2}/)) : false
                 }
             });
