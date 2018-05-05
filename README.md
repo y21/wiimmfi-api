@@ -60,3 +60,13 @@ Description: This endpoint returns the amount of players logged in for each regi
     "ame": 24
 }
 ```
+
+### findUser
+> Format: JSON
+
+Parameters: 
+Colons can be used to align columns.
+
+| Parameter     | Description   |
+| ------------- | --------------|
+| name          | The username of the player to search for
