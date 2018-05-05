@@ -64,6 +64,9 @@ Description: This endpoint returns the amount of players logged in for each regi
 ### findUser
 > Format: JSON
 
+#### Warning
+This may not work for every user that has weird characters in it.
+
 Parameters: 
 Colons can be used to align columns.
 
