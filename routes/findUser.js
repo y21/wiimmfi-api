@@ -13,8 +13,11 @@ module.exports = (req, res) => {
         result.on('data', d => str += d);
         result.on('end', () => {
             str = str.substr(str.indexOf('<th>friend code</th>'));
+
+            // Automatically escape special regex characters
             let escapedNickname = req.query.name;
             ['*', '^', '$', '?', '\\d', '\\w', '\\n', '\\s', '(', ')', '+', '[', ']', '-'].map(r=>escapedNickname = escapedNickname.replace(new RegExp('\\'+r, 'g'), '\\' + r));
+
             const userMatch = (str.match(new RegExp('<td align="center">(CTGP|Eur|Jap|Ame)\\/\\d?<\\/td>\\s*<td align="center">.{1,16}<\\/td>\\s*<td align="center">.{1,16}<\\/td>\\s*<td align="center".{1,128}<\\/td>\\s*<td align="center">.{1,16}<\\/td>\\s*<td align="center">.{1,16}<\\/td>\\s*<td>' + escapedNickname + '<\\/td>', 'g')) || []).map(e=>{
                 return e.split(/(<td align="center">|<\/td>|<td align="center">|<td align="center" title="[\w\s]+">|<td>)/)
             });
