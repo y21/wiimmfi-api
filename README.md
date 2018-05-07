@@ -65,7 +65,7 @@ Description: This endpoint returns the amount of players logged in for each regi
 > Format: JSON
 
 #### Warning
-This may not work for every user that has weird characters in it.
+This may not work for every user that has weird characters in it; most likely hacked mii names.
 
 Parameters: 
 
