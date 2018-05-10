@@ -7,7 +7,7 @@ const { db } = require('../Base');
  * @param res Response object (express)
  */
 module.exports = (req, res) => {
-    db.get('select * from totalAmount').then(result => {
+    db.get("select * from totalAmount").then(result => {
         const re = {
             available: {
                 worldwides: result.WWs,
