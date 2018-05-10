@@ -2,13 +2,17 @@ const express = require('express'), app = express(), { readdirSync } = require('
 const Base = require('./Base');
 Base.initUtils().then(u => console.log(`Successfully loaded ${Object.keys(u).length} utilities.`)).catch(console.log);
 
-for(let d of fs.readdirSync('./routes/')){
-  if(d !== 'routes') {
-      app.get('/' + d.split(".")[0], require(`./routes/${d}`));
-  }
+for(let d of fs.readdirSync("./routes/")){
+    try {
+        if (d !== "routes") {
+            app.get("/" + d.split(".")[0], require(`./routes/${d}`));
+        }
+    }catch(e) {
+        console.log(e.toString());
+    }
 }
 
-app.get('/', (req,res)=>res.send('<script>document.location.href="amount/";</script>')); // redirect to /amount/ yet
+app.get('/', (req,res) => res.send('<script>document.location.href="amount/";</script>')); // redirect to /amount/ yet
 
 
 
