@@ -12,7 +12,7 @@ for(let d of fs.readdirSync("./routes/")){
     }
 }
 
-app.get('/', (req,res) => res.send("<script>document.location.href='amount/';</script>")); // redirect to /amount/ yet
+app.get("/", (req,res) => res.send("<script>document.location.href='amount/';</script>")); // redirect to /amount/ yet
 
 
 
