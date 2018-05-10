@@ -30,7 +30,6 @@ module.exports = (req, res) => {
                     loginRegion: (userMatch[0] || [])[2],
                     gameType: (userMatch[0] || []).find(e=>e.includes('vs')) ? "versus" : "battle",
                     connectionFail: (userMatch[0] || []).find(e=>/\d\.\d{2}$/.test(e)) ? userMatch[0].find(e=>/\d\.\d{2}$/.test(e)).substr(userMatch[0].find(e=>/\d\.\d{2}$/.test(e)).search(/\d\.\d{2}/)) : false,
-                    room: str.substr(str.substring(0, str.indexOf('<td>' + req.query.name + '</td>')).lastIndexOf('</a> (created ')-4, 4) || '-'
                 }
             });
         });
