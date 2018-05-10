@@ -1,4 +1,4 @@
-const { get } = require('https');
+const { get } = require("https");
 
 /**
  * Updates the database.
