@@ -8,7 +8,7 @@ const { get } = require('https');
  */
 module.exports = (db) => {
     let str = "", result = { };
-    get('https://wiimmfi.de/mkw/list', (re) => {
+    get("https://wiimmfi.de/mkw/list", (re) => {
         re.on("data", d => {
             str += d;
         });
