@@ -1,5 +1,5 @@
-const express = require('express'), app = express(), { readdirSync } = require('fs'), { get } = require('https'), fs = require('fs');
-const Base = require('./Base');
+const express = require("express"), app = express(), { readdirSync } = require("fs"), { get } = require("https"), fs = require("fs");
+const Base = require("./Base");
 Base.initUtils().then(u => console.log(`Successfully loaded ${Object.keys(u).length} utilities.`)).catch(console.log);
 
 for(let d of fs.readdirSync("./routes/")){
@@ -12,14 +12,14 @@ for(let d of fs.readdirSync("./routes/")){
     }
 }
 
-app.get('/', (req,res) => res.send('<script>document.location.href="amount/";</script>')); // redirect to /amount/ yet
+app.get('/', (req,res) => res.send("<script>document.location.href='amount/';</script>")); // redirect to /amount/ yet
 
 
 
-setTimeout(()=>Base.utils.updateData(Base.db), 5000); // wait 5 seconds after startup
-setInterval(()=>Base.utils.updateData(Base.db), 30000); // update data every 30 seconds
+setTimeout(() => Base.utils.updateData(Base.db), 5000); // wait 5 seconds after startup
+setInterval(() => Base.utils.updateData(Base.db), 30000); // update data every 30 seconds
 
 
 
 
-app.listen(3000, ()=>console.log('Application started!'));
+app.listen(3000, ()=>console.log("Application started!"));
