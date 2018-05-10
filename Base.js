@@ -1,5 +1,5 @@
-const { existsSync } = require('fs');
-class Base { };
+const { existsSync } = require("fs");
+class Base { }
 Base.defaultRoute = "./routes/amount.js";
 Base.db;
 Base.utils = { };
@@ -8,7 +8,7 @@ Base.initUtils = () => {
         for(const f of require("fs").readdirSync("./utils/")){
             if(f !== 'utils'){
                 if(!existsSync(`./utils/${f}`)) reject(`File ${f} does not exist.`);
-                Base.utils[f.split('.')[0]] = require('./utils/' + f);
+                Base.utils[f.split('.')[0]] = require("./utils/" + f);
             }
         }
         resolve(Base.utils);
