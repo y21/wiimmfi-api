@@ -7,7 +7,7 @@ const { db } = require('../Base');
  * @param res Response object (express)
  */
 module.exports = (req, res) => {
-    db.get('select * from region_amount').then(result => {
+    db.get("select * from region_amount").then(result => {
         res.json({
             ctgp: result.ctgp,
             eur: result.eur,
