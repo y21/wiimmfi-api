@@ -22,4 +22,4 @@ setInterval(() => Base.utils.updateData(Base.db), 30000); // update data every 3
 
 
 
-app.listen(3000, ()=>console.log("Application started!"));
+app.listen(3000, () => console.log("Application started!"));
