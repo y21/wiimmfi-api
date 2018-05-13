@@ -1,37 +1,18 @@
-const { get } = require("https");
+const { get } = require("snekfetch"),
+    { fromString } = require("../../FlagStore");
 
-/**
- * findUser endpoint; get information about a player (has to be in a room!)
- *
- * @param req Request object (express)
- * @param res Response object (express)
- */
-module.exports = (req, res) => {
-    if (!req.query.name) return res.json({status: 400, message: "No name parameter provided"});
-    get("https://wiimmfi.de/mkw/list", result => {
-        let str = "";
-        result.on("data", d => str += d);
-        result.on("end", () => {
-            str = str.substr(str.indexOf("<th>friend code</th>"));
-
-            // Automatically escape special regex characters
-            let escapedNickname = req.query.name;
-            ["*", "^", "$", "?", "\\d", "\\w", "\\n", "\\s", "(", ")", "+", "[", "]", "-"].map(r => escapedNickname = escapedNickname.replace(new RegExp("\\"+r, "g"), "\\" + r));
-
-            const userMatch = (str.match(new RegExp("<td align=\"center\">(CTGP|Eur|Jap|Ame)\\/\\d?<\\/td>\\s*<td align=\"center\">.{1,16}<\\/td>\\s*<td align=\"center\">.{1,16}<\\/td>\\s*<td align=\"center\".{1,128}<\\/td>\\s*<td align=\"center\">.{1,16}<\\/td>\\s*<td align=\"center\">.{1,16}<\\/td>\\s*<td>" + ((req.query.flags || "").split(",").includes("i") ? `.*${escapedNickname}.*` : escapedNickname) + "<\\/td>", "g")) || []).map(e => {
-                return e.split(/(<td align="center">|<\/td>|<td align="center">|<td align="center" title="[\w\s]+">|<td>)/);
-            });
-            if(!userMatch[0]) return res.json({ status: 400, message: "user not found" });
-            res.json({
-                status: 200,
-                data: {
-                    VR: ((userMatch[0] || []).filter(e => /\d{4}/g.test(e)) || []).sort((a,b) => str.indexOf(a)-str.indexOf(b))[1],
-                    BR: ((userMatch[0] || []).filter(e => /\d{4}/g.test(e)) || []).sort((a,b) => str.indexOf(a)-str.indexOf(b))[0],
-                    loginRegion: (userMatch[0] || [])[2],
-                    gameType: (userMatch[0] || []).find(e => e.includes("vs")) ? "versus" : "battle",
-                    connectionFail: (userMatch[0] || []).find(e => /\d\.\d{2}$/.test(e)) ? userMatch[0].find(e => /\d\.\d{2}$/.test(e)).substr(userMatch[0].find(e => /\d\.\d{2}$/.test(e)).search(/\d\.\d{2}/)) : false,
-                }
-            });
-        });
-    });
+module.exports = async message => {
+    let request = (await get(`https://wiimmfi.glitch.me/findUser?name=${message.content.split(" ").slice(2).join(" ").substr(0, message.content.indexOf("-flag:") > -1 ? message.content.split(" ").slice(2).join(" ").indexOf("-flag:") - 1 : message.content.split(" ").slice(2).join(" ").length).replace(/ /g, "%20")}${fromString(message.content) ? "&flags=" + fromString(message.content).join(",") : ""}`).catch(console.log)).body;
+    if(request.status === 400) return message.reply("user is not in a room (not found)");
+    let embed = new message.Discord.RichEmbed()
+        .setTitle(`Information about ${message.content.split(" ").slice(2).join(" ").substr(0, message.content.indexOf("-flag:") > -1 ? message.content.split(" ").slice(2).join(" ").indexOf("-flag:") - 1 : message.content.split(" ").slice(2).join(" ").length)}`)
+        .addField("VR (versus rating)", request.data.VR || "<:mysterybox:442440471424270339>")
+        .addField("BR (battle rating)", request.data.BR ||"<:mysterybox:442440471424270339>")
+        .addField("Login region", request.data.loginRegion || "<:mysterybox:442440471424270339>")
+        .addField("Game type", request.data.gameType || "<:mysterybox:442440471424270339>")
+        .addField("Connection fail", request.data.connectionFail || "—")
+        .setColor(message.embedColors[Math.floor(Math.random() * message.embedColors.length)])
+        .setThumbnail("http://chadsoft.co.uk/wiimmfi/wiimmfi-dark.png")
+        .setTimestamp();
+    message.channel.send(embed);
 };
