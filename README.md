@@ -75,3 +75,4 @@ Parameters:
 | Parameter     | Description   |
 | ------------- | --------------|
 | name          | The username of the player to search for
+| flags         | Flags; `i` = includes, search by name includes (optional)
