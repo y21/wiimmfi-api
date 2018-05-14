@@ -76,3 +76,28 @@ Parameters:
 | ------------- | --------------|
 | name          | The username of the player to search for
 | flags         | Flags; `i` = includes, search by name includes (optional)
+
+
+### users
+> Format: JSON
+
+Parameters: *none*
+
+Description: This endpoint returns an array of users in all rooms.
+### Example Response
+```js
+[
+    "YTubeCCCLP",
+    "XXLMario",
+    "1. Liam<br/>2. Jan-Robert",
+    "Pietro",
+    "Sabrii»♪",
+    "hammy",
+    "_Shadder2K",
+    "Dave",
+    "MKT☆mιζμεχ",
+    "♪♪Tumi™♪♪",
+    "λ★lcohol",
+    "Soporific"
+]
+```
