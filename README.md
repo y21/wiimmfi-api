@@ -68,7 +68,7 @@ Description: This endpoint returns the amount of players logged in for each regi
 > Format: JSON
 
 #### Warning
-This may not work for every user that has weird characters in it; most likely hacked mii names. It also won't find players that are playing with 2 or more players (split-screen).
+This may not work for every user that has weird characters in it; most likely hacked mii names. It also won't find players that are playing with 2 or more players (split-screen) if the `i` flag has not been set.
 
 Parameters: 
 
