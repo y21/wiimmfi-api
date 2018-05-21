@@ -66,7 +66,8 @@ module.exports = (db) => {
         });
         re.on("end", d => {
             result = {
-                totalProfiles: (str.match(/<td *align *= *"?center *"?> *\d+ *<\/td> *<td *align *= *"?center *"?><a *href *= *"\/game\/smashbrosxwii" *> *\d+ *<\/a>/)[0].match(/\d+/) || ["-"])[0]
+                totalProfiles: (str.match(/<td *align *= *"?center *"?> *\d+ *<\/td> *<td *align *= *"?center *"?><a *href *= *"\/game\/smashbrosxwii" *> *\d+ *<\/a>/)[0].match(/\d+/) || ["-"])[0],
+                online: (str.match(/<td *align *= *"?center *"?> *\d+ *<\/td> *<td *align *= *"?center *"?><a *href *= *"\/game\/smashbrosxwii" *> *\d+ *<\/a>/)[0].match(/\d+/g) || ["-"])[1]
             };
 
             // ---------------------
@@ -74,12 +75,13 @@ module.exports = (db) => {
             // ---------------------
 
             db.all("select * from ssbb").then(r => {
-                if(r.length === 0) return db.run("insert into ssbb values (" + result.totalProfiles + ", '" + Date.now() + "')");
-                else db.run("update ssbb set totalProfiles=" + result.totalProfiles + ", lastEdit='" + Date.now() + "'");
+                if(r.length === 0) return db.run(`insert into ssbb values(${Number(result.totalProfiles)}, ${Number(result.online)}, '${Date.now()}')`);
+                else db.run("update ssbb set totalProfiles=" + Number(result.totalProfiles) + ", online=" + Number(result.online) + ", lastEdit='" + Date.now() + "'");
             }).catch(error => {
                 if(error.toString().includes("no such table: ssbb")){
-                    return db.run("CREATE TABLE `ssbb` ( `totalProfiles` INTEGER, `lastEdit` TEXT )");
+                    return db.run("CREATE TABLE `ssbb` ( `totalProfiles` INTEGER, `online` INTEGER, `lastEdit` INTEGER )");
                 }
+                else console.log(error.toString());
             });
         });
     });
