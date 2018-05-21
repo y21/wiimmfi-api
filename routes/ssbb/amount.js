@@ -10,6 +10,7 @@ module.exports = (req, res) => {
     db.get("select * from ssbb").then(result => {
         const re = {
             totalProfiles: result.totalProfiles,
+            online: result.online,
             lastCheck: result.lastEdit,
             status: 200
         };
