@@ -38,8 +38,7 @@ module.exports = (db) => {
 
             //  TotalAmount Queries
             db.all("select * from totalAmount").then(r => {
-                if(typeof r === "undefined") return db.run("CREATE TABLE 'totalAmount' ( `WWs` TEXT, `continentals` TEXT, `privates` TEXT, `lastEdit` TEXT, `players` TEXT )");
-                else if(r.length === 0) return db.run(`insert into totalAmount values ('${result.totalAvailable.worldwides}', '${result.totalAvailable.continentals}', '${result.totalAvailable.privates}', '${Date.now()}', '${result.totalAvailable.players}')`).catch(console.log);
+                if(r.length === 0) return db.run(`insert into totalAmount values ('${result.totalAvailable.worldwides}', '${result.totalAvailable.continentals}', '${result.totalAvailable.privates}', '${Date.now()}', '${result.totalAvailable.players}')`).catch(console.log);
                 else db.run(`update totalAmount set WWs='${result.totalAvailable.worldwides || 0}', continentals='${result.totalAvailable.continentals || 0}', privates='${result.totalAvailable.privates || 0}', lastEdit='${Date.now()}', players='${result.totalAvailable.players}'`).catch(console.log);
             }).catch(error => {
                 if(error.toString().includes("no such table: totalAmount")){
@@ -57,6 +56,30 @@ module.exports = (db) => {
                     return db.run("CREATE TABLE `region_amount` ( `eur` INTEGER, `jap` INTEGER, `ctgp` INTEGER, `ame` INTEGER )");
                 }
                 else console.log(error.toString());
+            });
+        });
+    });
+    get("https://wiimmfi.de/stat?m=28", (re) => {
+        let str = "", result = { };
+        re.on("data", d => {
+            str += d;
+        });
+        re.on("end", d => {
+            result = {
+                totalProfiles: (str.match(/<td *align *= *"?center *"?> *\d+ *<\/td> *<td *align *= *"?center *"?><a *href *= *"\/game\/smashbrosxwii" *> *\d+ *<\/a>/)[0].match(/\d+/) || ["-"])[0]
+            };
+
+            // ---------------------
+            // Queries
+            // ---------------------
+
+            db.all("select * from ssbb").then(r => {
+                if(r.length === 0) return db.run("insert into ssbb values (" + result.totalProfiles + ", '" + Date.now() + "')");
+                else db.run("update ssbb set totalProfiles=" + result.totalProfiles + ", lastEdit='" + Date.now() + "'");
+            }).catch(error => {
+                if(error.toString().includes("no such table: ssbb")){
+                    return db.run("CREATE TABLE `ssbb` ( `totalProfiles` INTEGER, `lastEdit` TEXT )");
+                }
             });
         });
     });
