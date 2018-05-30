@@ -10,6 +10,7 @@ new Vue({
                 about_page: "about.html"
             },
             endpoints: [
+                // Mario Kart Wii
                 {
                     name: "amount",
                     desc: "This endpoint returns the amount of available worldwides, continentals, privates, total worldwides, total continentals, total privates, total players and players in available rooms.",
@@ -46,6 +47,14 @@ new Vue({
                     format: "JSON",
                     parameters: [ ],
                     response: "https://gist.githubusercontent.com/y21/8a742a17585ff92703b12696abc902b6/raw/215a6276f3d77a7f6ff01721d0f3a945f7bb495d/users-endpoint.json"
+                },
+                // Super Smash Bros Brawl
+                {
+                    name: "ssbb/amount",
+                    desc: "This endpoint returns the amount of players that have been connected to wiimmfi once with the game super smash bros brawl",
+                    format: "JSON",
+                    parameters: [ ],
+                    response: "https://gist.githubusercontent.com/y21/8a742a17585ff92703b12696abc902b6/raw/f187af6037a498f8a1f169484170a2bd4b50a453/ssbb-amount-endpoint.json"
                 }
             ]
         }
