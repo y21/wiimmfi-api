@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>wiimmfi-api | About</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <div id="header">
+        <a class="hd heading" href="index.html">{{ app.name }}</a>
+        <a class="hd header-link" v-bind:href="app.links.github">GitHub</a>
+        <a class="hd header-link" v-bind:href="app.links.discord">Discord</a>
+        <a class="hd header-link" v-bind:href="app.links.gh_releases">Releases</a>
+        <a class="hd header-link" v-bind:href="app.links.about_page">About</a>
+    </div>
+    <div id="wrapper">
+        This project has been started on 29th April of 2018 and is being developed by <a class="nlink" href="https://github.com/y21">y21</a> and is <b>NOT</b> affiliated with the original online service wiimmfi.<br/>
+        If you need help with the API or the bot, you can join our <a class="nlink" v-bind:href="app.links.discord">discord server</a>.
+    </div>
+</div>
+<script src="vue-frontend.js"></script>
+</body>
+</html>
