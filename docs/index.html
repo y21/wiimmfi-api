@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
     <meta charset="UTF-8">
     <title>wiimmfi-api documentation</title>
     <link rel="stylesheet" href="style.css" />
@@ -27,7 +27,7 @@
                 <h2>{{ item.name }}</h2>
                 <u>Endpoint description:</u> {{ item.desc }} <br/><br/>
                 <u>Format:</u> {{ item.format }} <br/><br/>
-                <u>Parameters:</u> {{ item.parameters.map(e => e.name + " | " + e.desc).join("\n") }} <br/><br/>
+                <u>Parameters:</u> {{ item.parameters.map(e => e.name + " | " + e.desc).join(" - ") }} <br/><br/>
                 <a class="nlink" v-bind:href="item.response">Example response<u></u></a>
             </div>
         </div>
