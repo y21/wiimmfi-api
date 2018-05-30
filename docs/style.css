@@ -1,5 +1,7 @@
 body {
     background-color: #2C2F33;
+    font-family: "Roboto";
+    color: white;
 }
 
 #header {
@@ -12,16 +14,40 @@ body {
     box-shadow: 3px 1px 0px #23272A;
 }
 
-.heading {
-    color: white;
-    font-family: "Roboto";
-    font-size: 20px;
+.hd {
     display: block;
     width: 250px;
+    color: white;
     margin-top: 15px;
+}
+
+.heading {
+    font-size: 20px;
     margin-left: 10px;
+    float: left;
+}
+
+.header-link {
+    float: left;
+    margin-top: 17px;
+    color: rgba(230,225,225,0.86);
+    width: 75px;
 }
 
 a {
     text-decoration: none;
+}
+
+a:visited {
+    color: white;
+}
+
+#wrapper {
+    margin-top: 100px;
+    margin-left: 15px;
+    width: 80%;
+}
+
+.nlink {
+    text-decoration: underline;
 }
