@@ -2,6 +2,7 @@ const express = require("express"), app = express(), { readdirSync } = require("
 const Base = require("./Base");
 Base.initUtils().then(u => console.log(`Successfully loaded ${Object.keys(u).length} utilities.`)).catch(console.log);
 
+// Routes (endpoints)
 for(const d of fs.readdirSync("./routes/")){
     try {
         if (d !== "routes") {
@@ -18,7 +19,16 @@ for(const d of fs.readdirSync("./routes/")){
     }
 }
 
-app.get("/", (req,res) => res.send("<script>document.location.href='amount/';</script>")); // redirect to /amount/ yet
+// Docs
+for(const d of fs.readdirSync("./docs/")){
+    try {
+        app.get(`/docs/${d}`, (req, res) => res.sendFile(`${__dirname}/docs/${d}`));
+    } catch(e) {
+        console.log(e.toString());
+    }
+}
+
+app.get("/", (req,res) => res.send("<script>document.location.href='docs/index.html';</script>"));
 
 
 
