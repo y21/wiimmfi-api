@@ -23,6 +23,13 @@
             This API is public, means you don't need a token or anything to use this service. Most of these endpoints use regular expressions to scrape information from the wiimmfi website. What that means is that if the website will be ever down or not accessable, this API won't work, too.<br/>
             This service should give you accuate information, but it is <b>not</b> guaranteed as you may have seen in the mkw/amount endpoint. <br/>
             If the frontend code will change, all regular expressions will more likely stop working, so I have to pray that they don't edit the code every few days.
+            <div id="endpoints" v-for="item in app.endpoints">
+                <h2>{{ item.name }}</h2>
+                <u>Endpoint description:</u> {{ item.desc }} <br/><br/>
+                <u>Format:</u> {{ item.format }} <br/><br/>
+                <u>Parameters:</u> {{ item.parameters.map(e => e.name + " | " + e.desc).join("\n") }} <br/><br/>
+                <a class="nlink" v-bind:href="item.response">Example response<u></u></a>
+            </div>
         </div>
     </div>
 <script src="vue-frontend.js"></script>
