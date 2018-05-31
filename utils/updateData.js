@@ -67,8 +67,8 @@ try {
             });
             re.on("end", d => {
                 result = {
-                    totalProfiles: ((str.match(/<td *align *= *"?center *"?> *\d+ *<\/td> *<td *align *= *"?center *"?><a *href *= *"\/game\/smashbrosxwii" *> *\d+ *<\/a>/) || ["0"])[0].match(/\d+/) || ["-"])[0],
-                    online: ((str.match(/<td *align *= *"?center *"?> *\d+ *<\/td> *<td *align *= *"?center *"?><a *href *= *"\/game\/smashbrosxwii" *> *\d+ *<\/a>/) || ["0"])[0].match(/\d+/g) || ["-"])[1]
+                    totalProfiles: ((str.match(/<td *align *= *"?center *"?> *\d+ *<\/td> *<td *align *= *"?center *"?><a *href *= *"\/game\/smashbrosxwii" *> *\d+ *<\/a>/) || ["0"])[0].match(/\d+/) || ["0"])[0],
+                    online: ((str.match(/<td *align *= *"?center *"?> *\d+ *<\/td> *<td *align *= *"?center *"?><a *href *= *"\/game\/smashbrosxwii" *> *\d+ *<\/a>/) || ["0"])[0].match(/\d+/g) || [null, "0"])[1]
                 };
 
                 // ---------------------
