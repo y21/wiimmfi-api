@@ -7,7 +7,8 @@ new Vue({
                 github: "https://github.com/y21/wiimmfi-api/",
                 discord: "https://discord.gg/6DPWSmK/",
                 gh_releases: "https://github.com/y21/wiimmfi-api/releases",
-                about_page: "about.html"
+                about_page: "about.html",
+                endpoints: "endpoints.html"
             },
             endpoints: [
                 // Mario Kart Wii
