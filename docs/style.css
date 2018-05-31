@@ -1,7 +1,7 @@
 body {
     background-color: #2C2F33;
     font-family: "Roboto";
-    color: white;
+    color: rgba(167,164,164,0.86);
 }
 
 #header {
@@ -23,7 +23,7 @@ body {
 
 .heading {
     font-size: 20px;
-    margin-left: 10px;
+    margin-left: 20px;
     float: left;
 }
 
@@ -38,16 +38,30 @@ a {
     text-decoration: none;
 }
 
-a:visited {
-    color: white;
-}
-
 #wrapper {
     margin-top: 100px;
-    margin-left: 15px;
+    margin-left: 25px;
     width: 80%;
 }
 
 .nlink {
     text-decoration: underline;
+    color: rgba(167,164,164,0.86);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: white;
+}
+
+#endpoints {
+    margin-top: 100px;
+}
+
+th, td {
+    width: 125px;
+}
+
+table {
+    border: 1px solid white;
+    color: white;
 }
