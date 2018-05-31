@@ -23,7 +23,6 @@ module.exports = (req, res) => {
                 return e.split(/(<td align="center">|<\/td>|<td align="center">|<td align="center" title="[\w\s]+">|<td>)/);
             });
             if(!userMatch[0]) return res.json({ status: 400, message: "user not found" });
-            console.log(userMatch[0]);
             res.json({
                 status: 200,
                 data: {
