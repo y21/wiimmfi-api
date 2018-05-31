@@ -10,6 +10,78 @@ new Vue({
                 about_page: "about.html",
                 endpoints: "endpoints.html"
             },
+            changelog: [
+                {
+                    date: "31th May 2018",
+                    contents: [
+                        "SQLite (structure) fixes: lastEdit' row type was INTEGER instead of TEXT",
+                        "Catch promise rejections in utils#updateData"
+                    ]
+                },
+                {
+                    date: "30th May 2018",
+                    contents: [
+                        "(Proper) <a href=\"#\" class=\"nlink\">documentation</a> has been finished.",
+                        "Add vue to documentation"
+                    ]
+                },
+                {
+                    date: "21st May 2018",
+                    contents: [
+                        "Add super smash bros brawl online support to api. (<a href=\"https://github.com/y21/wiimmfi-api/commit/6f18f41add3e8ba2bccfd990369f01d99a0ba08a\" class=\"nlink\">PR#3</a>)",
+                        "Fix SQLite table bugs"
+                    ]
+                },
+                {
+                    date: "20th May 2018",
+                    contents: [
+                        "Bug fix where CTGP players didn't show up as online"
+                    ]
+                },
+                {
+                    date: "20th May 2018",
+                    contents: [
+                        "Bug fix where CTGP players didn't show up as online"
+                    ]
+                },
+                {
+                    date: "13th May 2018",
+                    contents: [
+                        "Fix VR/BR being swapped",
+                        "Flags support"
+                    ]
+                },
+                {
+                    date: "11th May 2018",
+                    contents: [
+                        "Codacy refactor"
+                    ]
+                },
+                {
+                    date: "10th May 2018",
+                    contents: [
+                        "Codacy refactor"
+                    ]
+                },
+                {
+                    date: "7th May 2018",
+                    contents: [
+                        "Escape special regex characters such as * + ( ) [ ] ."
+                    ]
+                },
+                {
+                    date: "1st May 2018",
+                    contents: [
+                        "regions endpoint added"
+                    ]
+                },
+                {
+                    date: "30th May 2018",
+                    contents: [
+                        "Use SQLite as database to store information"
+                    ]
+                }
+            ],
             endpoints: [
                 // Mario Kart Wii
                 {
