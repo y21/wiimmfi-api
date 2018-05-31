@@ -25,50 +25,14 @@
             This service should give you accuate information, but it is <b>not</b> guaranteed as you may have seen in the mkw/amount endpoint. <br/>
             If the frontend code will change, all regular expressions will more likely stop working, so I have to pray that they don't edit the code every few days.
             <h2 style="margin-top: 60px;">Changelog</h2>
-            <h4>31th May 2018</h4>
+            <div v-for="change in app.changelog">
+            <h4>{{ change.date }}</h4>
             <ul>
-                <li>SQLite (structure) fixes: lastEdit' row type was INTEGER instead of TEXT</li>
-                <li>Catch promise rejections in utils#updateData</li>
+                <div v-for="element in change.contents">
+                    <li>{{ element }}</li>
+                </div>
             </ul>
-            <h4>30th May 2018</h4>
-            <ul>
-                <li>(Proper) <a href="#" class="nlink">documentation</a> has been finished.</li>
-                <li>Add vue to documentation</li>
-            </ul>
-            <h4>21st May 2018</h4>
-            <ul>
-                <li>Add super smash bros brawl online support to api. (<a href="https://github.com/y21/wiimmfi-api/commit/6f18f41add3e8ba2bccfd990369f01d99a0ba08a" class="nlink">PR#3</a>)</li>
-                <li>Fix SQLite table bugs</li>
-            </ul>
-            <h4>20th May 2018</h4>
-            <ul>
-                <li>Bug fix where CTGP players didn't show up as online</li>
-            </ul>
-            <h4>13th May 2018</h4>
-            <ul>
-                <li>Fix VR/BR being swapped</li>
-                <li>Flags support</li>
-            </ul>
-            <h4>11th May 2018</h4>
-            <ul>
-                <li>Codacy refactor</li>
-            </ul>
-            <h4>10th May 2018</h4>
-            <ul>
-                <li>Codacy refactor</li>
-            </ul>
-            <h4>7th May 2018</h4>
-            <ul>
-                <li>Escape special regex characters such as * + ( ) [ ] .</li>
-            </ul>
-            <h4>1st May 2018</h4>
-            <ul>
-                <li>regions endpoint added</li>
-            </ul>
-            <h4>30th April 2018</h4>
-            <ul>
-                <li>Use SQLite as database to store information</li>
-            </ul>
+            </div>
         </div>
     </div>
 <script src="vue-frontend.js"></script>
