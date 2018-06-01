@@ -3,7 +3,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9ee46ec893de4624b946b9bf712d6171)](https://app.codacy.com/app/y21/wiimmfi-api?utm_source=github.com&utm_medium=referral&utm_content=y21/wiimmfi-api&utm_campaign=badger)
 
 Public API to get information about mkwii rooms<br/>
-<a href="https://wiimmfi.glitch.me/">Demo</a> | <a href="https://wiimmfi.de/mkw/list">Room list</a> | <a href="https://wiimmfi.de">Wiimmfi</a>
+<a href="https://wiimmfi.glitch.me/">Demo</a> | <a href="https://wiimmfi.de/mkw/list">Room list</a> | <a href="https://wiimmfi.de">Wiimmfi</a> | <a href="https://y21.github.io/wiimmfi-api">Documentation</a>
 
 ## Notice
 This is an **unofficial** API and is **not** affiliated with wiimmfi. Provided data *can* be inaccurate or wrong because of frontend code modifications, but this should not happen often.<br/>
