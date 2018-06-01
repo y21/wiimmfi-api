@@ -12,6 +12,12 @@ new Vue({
             },
             changelog: [
                 {
+                    date: "1st June 2018",
+                    contents: [
+                        "name can be passed as header and as a POST parameter now"
+                    ]
+                },
+                {
                     date: "31th May 2018",
                     contents: [
                         "SQLite (structure) fixes: lastEdit' row type was INTEGER instead of TEXT",
@@ -100,7 +106,7 @@ new Vue({
                 },
                 {
                     name: "findUser",
-                    desc: "This endpoint returns information about a user such as VR, BR, etc. This may not work for every user that has weird characters in it; most likely hacked mii names. It also won't find players that are playing with 2 or more players (split-screen) if the i flag has not been set.",
+                    desc: "This endpoint returns information about a user such as VR, BR, etc. This may not work for every user that has weird characters in it; most likely hacked mii names. It also won't find players that are playing with 2 or more players (split-screen) if the i flag has not been set.<br/>name parameter can be either passed as a GET, POST or header.",
                     format: "JSON",
                     parameters: [
                         {
