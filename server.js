@@ -54,6 +54,6 @@ app.get("/", (req,res) => res.send("<script>document.location.href='docs/index.h
 
 
 setTimeout(() => Base.utils.updateData(Base.db), 5000); // wait 5 seconds after startup
-setInterval(() => Base.utils.updateData(Base.db), 10000); // update data every 30 seconds
+setInterval(() => Base.utils.updateData(Base.db), 30000); // update data every 30 seconds
 
 app.listen(3000, () => console.log("Application started!"));
