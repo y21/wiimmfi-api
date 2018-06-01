@@ -49,7 +49,7 @@ for(const d of fs.readdirSync("./docs/")){
     }
 }
 
-app.get("/", (req,res) => res.send("<script>document.location.href='docs/';</script>"));
+app.get("/", (req,res) => res.send("<script>document.location.href='docs/index.html';</script>"));
 
 
 
