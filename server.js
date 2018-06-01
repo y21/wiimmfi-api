@@ -1,8 +1,11 @@
-const express = require("express"), app = express(), { readdirSync } = require("fs"), { get } = require("https"), fs = require("fs");
+const express = require("express"), app = express(), bodyParser = require("body-parser"), { readdirSync } = require("fs"), { get } = require("https"), fs = require("fs");
 const Base = require("./Base");
 Base.initUtils().then(u => console.log(`Successfully loaded ${Object.keys(u).length} utilities.`)).catch(console.log);
 
-// Routes (endpoints)
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// GET Routes (endpoints)
 for(const d of fs.readdirSync("./routes/")){
     try {
         if (d !== "routes") {
@@ -19,6 +22,24 @@ for(const d of fs.readdirSync("./routes/")){
     }
 }
 
+// POST Routes (endpoints)
+for(const d of fs.readdirSync("./post-routes/")){
+    try {
+        if (d !== "post-routes") {
+            if(d !== "ssbb") {
+                app.post("/" + d.split(".")[0], require(`./post-routes/${d}`));
+            } else {
+                for(const ssbbRoute of readdirSync("./post-routes/ssbb/")){
+                    app.post("/ssbb/" + ssbbRoute.split(".")[0], require(`./post-routes/ssbb/${ssbbRoute}`));
+                }
+            }
+        }
+    } catch(e) {
+        console.log(e.toString());
+    }
+}
+
+
 // Docs
 for(const d of fs.readdirSync("./docs/")){
     try {
@@ -28,14 +49,11 @@ for(const d of fs.readdirSync("./docs/")){
     }
 }
 
-app.get("/", (req,res) => res.send("<script>document.location.href='docs/index.html';</script>"));
+app.get("/", (req,res) => res.send("<script>document.location.href='docs/';</script>"));
 
 
 
 setTimeout(() => Base.utils.updateData(Base.db), 5000); // wait 5 seconds after startup
-setInterval(() => Base.utils.updateData(Base.db), 30000); // update data every 30 seconds
-
-
-
+setInterval(() => Base.utils.updateData(Base.db), 10000); // update data every 30 seconds
 
 app.listen(3000, () => console.log("Application started!"));
