@@ -8,17 +8,16 @@ const { db } = require("../../Base");
  */
 module.exports = (req, res) => {
     db.get("select * from ssbb").then(result => {
-        const re = {
+        res.json({
             totalProfiles: result.totalProfiles,
             online: result.online,
-            lastCheck: result.lastEdit,
             logins: {
                 thirty_minutes: result.thirtyMinutes,
                 four_hours: result.fourHours,
                 twentyfour_hours: result.twentyfourHours
             },
+            lastCheck: result.lastEdit,
             status: 200
-        };
-        res.json(re);
+        });
     });
 };
