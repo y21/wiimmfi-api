@@ -67,12 +67,12 @@ try {
             re.on("end", () => {
                 result = {
                     totalProfiles: ((str.match(ssbb.totalProfiles) || ["0"])[0].match(/\d+/) || ["0"])[0],
-                    online: ((str.match(ssbb.online) || ["0"])[0].match(/\d+/g) || [null, "0"])[1],
+                    online: ((str.match(ssbb.totalProfiles) || ["0"])[0].match(/\d+/g) || [null, "0"])[1],
                     logins: {
                         thirty_minutes: ((str.match(ssbb.thirty_minutes) || ["0"])[0].match(/\d+/g) || [null, null, null, "—"])[2]
                     }
                 };
-
+                
                 // ---------------------
                 // Queries
                 // ---------------------
