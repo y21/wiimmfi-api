@@ -11,6 +11,6 @@ module.exports = {
     },
     ssbb: {
         totalProfiles: /<td *align *= *"?center *"?> *\d+ *<\/td> *<td *align *= *"?center *"?><a *href *= *"\/game\/smashbrosxwii" *> *\d+ *<\/a>/,
-        thirty_minutes: /<td *align *= *"?center"? *> *\d+ *<\/td> *<td *align *= *"?center"? *> *<a *href *= *"\/game\/smashbrosxwii" *>\d+<\/a><\/td> *<td *align *= *center *>\d+<\/td>/i
+        logins: /<td *align *= *"?center"? *> *\d+ *<\/td> *<td *align *= *"?center"? *> *<a *href *= *"\/game\/smashbrosxwii" *>\d+<\/a><\/td> *<td *align *= *center *>\d+<\/td><td align=center>\d+<\/td><td align=center>\d+<\/td>/i
     }
 };
