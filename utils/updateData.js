@@ -1,4 +1,5 @@
-const { get } = require("https");
+const { get } = require("https"),
+    { mkwii, ssbb } = require("../RegExes");
 try {
     /**
      * Updates the database.
@@ -18,17 +19,17 @@ try {
                     // amount endpoint
                     status: 200,
                     totalAvailable: {
-                        worldwides: str.split(/Worldwide *room/i).length - 1,
-                        continentals: str.split(/Continental *room/i).length - 1,
-                        privates: str.split(/Private *room/).length - 1,
-                        players: str.split(/<td>.{1,28}<\/td>/).length - 1
+                        worldwides: str.split(mkwii.worldwides).length - 1,
+                        continentals: str.split(mkwii.continentals).length - 1,
+                        privates: str.split(mkwii.privates).length - 1,
+                        players: str.split(mkwii.players).length - 1
                     },
 
                     // regions endpoint (for available rooms)
-                    ctgp: str.split(/<td align *= *"center" *> *CTGP *<\/td *>/).length - 1,
-                    eur: str.split(/<td align *= *"center" *> *Eur\/2 *<\/td *>/).length - 1,
-                    jap: str.split(/<td align *= *"center" *> *Jap\/0 *<\/td *>/).length - 1,
-                    ame: str.split(/<td align *= *"center" *> *Ame\/1 *<\/td *>/).length - 1
+                    ctgp: str.split(mkwii.ctgp).length - 1,
+                    eur: str.split(mkwii.eur).length - 1,
+                    jap: str.split(mkwii.jap).length - 1,
+                    ame: str.split(mkwii.ame).length - 1
                 };
 
                 // ---------------------
@@ -58,18 +59,17 @@ try {
             });
         });
         get("https://wiimmfi.de/stat?m=28", (re) => {
-
             let str = "",
                 result = {};
             re.on("data", d => {
                 str += d;
             });
-            re.on("end", d => {
+            re.on("end", () => {
                 result = {
-                    totalProfiles: ((str.match(/<td *align *= *"?center *"?> *\d+ *<\/td> *<td *align *= *"?center *"?><a *href *= *"\/game\/smashbrosxwii" *> *\d+ *<\/a>/) || ["0"])[0].match(/\d+/) || ["0"])[0],
-                    online: ((str.match(/<td *align *= *"?center *"?> *\d+ *<\/td> *<td *align *= *"?center *"?><a *href *= *"\/game\/smashbrosxwii" *> *\d+ *<\/a>/) || ["0"])[0].match(/\d+/g) || [null, "0"])[1],
+                    totalProfiles: ((str.match(ssbb.totalProfiles) || ["0"])[0].match(/\d+/) || ["0"])[0],
+                    online: ((str.match(ssbb.online) || ["0"])[0].match(/\d+/g) || [null, "0"])[1],
                     logins: {
-                        thirty_minutes: ((str.match(/<td *align *= *"?center"? *> *\d+ *<\/td> *<td *align *= *"?center"? *> *<a *href *= *"\/game\/smashbrosxwii" *>\d+<\/a><\/td> *<td *align *= *center *>\d+<\/td>/) || ["0"])[0].match(/\d+/g) || [null, null, null, "—"])[2]
+                        thirty_minutes: ((str.match(ssbb.thirty_minutes) || ["0"])[0].match(/\d+/g) || [null, null, null, "—"])[2]
                     }
                 };
 
