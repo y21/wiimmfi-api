@@ -12,6 +12,11 @@ module.exports = (req, res) => {
             totalProfiles: result.totalProfiles,
             online: result.online,
             lastCheck: result.lastEdit,
+            logins: {
+                thirty_minutes: result.thirtyMinutes,
+                four_hours: result.fourHours,
+                twentyfour_hours: result.twentyfourHours
+            },
             status: 200
         };
         res.json(re);
