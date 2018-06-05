@@ -4,6 +4,7 @@ Base.initUtils().then(u => console.log(`Successfully loaded ${Object.keys(u).len
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set("json spaces", 4);
 
 // GET Routes (endpoints)
 for(const d of fs.readdirSync("./routes/")){
