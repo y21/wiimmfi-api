@@ -8,7 +8,8 @@ new Vue({
                 discord: "https://discord.gg/6DPWSmK/",
                 gh_releases: "https://github.com/y21/wiimmfi-api/releases",
                 about_page: "about.html",
-                endpoints: "endpoints.html"
+                endpoints: "endpoints.html",
+                supported_games: "supported.html"
             },
             changelog: [
                 {
