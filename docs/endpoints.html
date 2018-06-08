@@ -20,7 +20,7 @@
     </div>
     <div id="wrapper">
         <div id="endpoints" v-for="item in app.endpoints">
-            <h2>{{ item.name }}</h2> <span class="http-method-span">GET</span>
+            <h2>{{ item.name }}</h2> <span class="http-method-span">{{ item.http_method.toUpperCase() }}</span>
             <u>Endpoint description:</u> {{ item.desc }} <br/><br/>
             <u>Format:</u> {{ item.format }} <br/><br/>
             <u>Parameters:</u> {{ item.parameters.map(e => e.name + " | " + e.desc).join(" - ") }} <br/><br/>
