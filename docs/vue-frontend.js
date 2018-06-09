@@ -92,7 +92,9 @@ new Vue({
                 // Mario Kart Wii
                 {
                     name: "amount",
-                    http_method: "get",
+                    http_method: [
+                        "get"
+                    ],
                     desc: "This endpoint returns the amount of available worldwides, continentals, privates, total worldwides, total continentals, total privates, total players and players in available rooms.",
                     format: "JSON",
                     parameters: [],
@@ -100,7 +102,9 @@ new Vue({
                 },
                 {
                     name: "regions",
-                    http_method: "get",
+                    http_method: [
+                        "get"
+                    ],
                     desc: "This endpoint returns the amount of players logged in for each region which can be either CTGP, Jap/0, Ame/1 or Eur/2.",
                     format: "JSON",
                     parameters: [],
@@ -108,7 +112,10 @@ new Vue({
                 },
                 {
                     name: "findUser",
-                    http_method: "get & post",
+                    http_method: [
+                        "get",
+                        "post"
+                    ],
                     desc: "This endpoint returns information about a user such as VR, BR, etc. This may not work for every user that has weird characters in it; most likely hacked mii names. It also won't find players that are playing with 2 or more players (split-screen) if the i flag has not been set.<br/>name parameter can be either passed as a GET, POST or header.",
                     format: "JSON",
                     parameters: [{
@@ -124,7 +131,9 @@ new Vue({
                 },
                 {
                     name: "users",
-                    http_method: "get",
+                    http_method: [
+                        "get"
+                    ],
                     desc: "This endpoint returns an array of users in all rooms.",
                     format: "JSON",
                     parameters: [],
@@ -133,7 +142,9 @@ new Vue({
                 // Super Smash Bros Brawl
                 {
                     name: "ssbb/amount",
-                    http_method: "get",
+                    http_method: [
+                        "get"
+                    ],
                     desc: "This endpoint returns the amount of players that have been connected to wiimmfi once with the game super smash bros brawl",
                     format: "JSON",
                     parameters: [],
