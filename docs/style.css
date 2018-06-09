@@ -66,10 +66,10 @@ table {
     color: white;
 }
 
-
 .http-method-span {
 	color: black;
 	background-color: #e74c3c;
 	border-radius: 5px;
 	padding: 3px;
+	margin-left: 5px;
 }
