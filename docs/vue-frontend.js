@@ -108,7 +108,7 @@ new Vue({
                 },
                 {
                     name: "findUser",
-                    http_method: "get",
+                    http_method: "get & post",
                     desc: "This endpoint returns information about a user such as VR, BR, etc. This may not work for every user that has weird characters in it; most likely hacked mii names. It also won't find players that are playing with 2 or more players (split-screen) if the i flag has not been set.<br/>name parameter can be either passed as a GET, POST or header.",
                     format: "JSON",
                     parameters: [{
