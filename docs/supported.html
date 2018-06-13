@@ -28,6 +28,10 @@
         <h3>Super Smash Bros. Brawl</h3>
         <i>Route: </i> /ssbb/ <br/>
         The route /ssbb/ is for all super smash bros brawl related endpoints such as {{ app.endpoints.filter(_ => _.name.startsWith("ssbb/")).map(_ => _.name).join(", ") }}.
+      
+        <h3>Animal Crossing (DS)</h3>
+        <i>Route: </i> /acrossingds/ <br/>
+        The route /acrossingds/ is for all animal crossing related endpoints (DS version, not wii) such as {{ app.endpoints.filter(_ => _.name.startsWith("acrossingds/")).map(_ => _.name).join(", ") }}. Notice that the japanese animal crossing isn't supported yet.
     </div>
 </div>
 <script src="vue-frontend.js"></script>
