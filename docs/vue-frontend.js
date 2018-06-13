@@ -104,7 +104,7 @@ new Vue({
                     desc: "This endpoint returns the amount of available worldwides, continentals, privates, total worldwides, total continentals, total privates, total players and players in available rooms.",
                     format: "JSON",
                     parameters: [],
-                    response: "https://gist.githubusercontent.com/y21/8a742a17585ff92703b12696abc902b6/raw/215a6276f3d77a7f6ff01721d0f3a945f7bb495d/amount-endpoint.json"
+                    response: "https://gist.githubusercontent.com/y21/6d9fc80d8404867855e54367007a10e3/raw/6944cc5f26c864d6810e089ba9e61c3c83f5edee/amount.json"
                 },
                 {
                     name: "regions",
@@ -114,7 +114,7 @@ new Vue({
                     desc: "This endpoint returns the amount of players logged in for each region which can be either CTGP, Jap/0, Ame/1 or Eur/2.",
                     format: "JSON",
                     parameters: [],
-                    response: "https://gist.githubusercontent.com/y21/8a742a17585ff92703b12696abc902b6/raw/215a6276f3d77a7f6ff01721d0f3a945f7bb495d/regions-endpoint.json"
+                    response: "https://gist.githubusercontent.com/y21/6d9fc80d8404867855e54367007a10e3/raw/8f914fe8ed761c93740e4ae6c5a3e407a7faeb36/regions.json"
                 },
                 {
                     name: "findUser",
@@ -133,7 +133,7 @@ new Vue({
                             desc: "[optional] Flags; i = includes, search by name includes"
                         }
                     ],
-                    response: "https://gist.githubusercontent.com/y21/8a742a17585ff92703b12696abc902b6/raw/215a6276f3d77a7f6ff01721d0f3a945f7bb495d/findUser-endpoint.json"
+                    response: "https://gist.githubusercontent.com/y21/6d9fc80d8404867855e54367007a10e3/raw/4882627a2e9f94442a0d036c2c74cc473ccbd2c3/findUser.json"
                 },
                 {
                     name: "users",
@@ -143,7 +143,7 @@ new Vue({
                     desc: "This endpoint returns an array of users in all rooms.",
                     format: "JSON",
                     parameters: [],
-                    response: "https://gist.githubusercontent.com/y21/8a742a17585ff92703b12696abc902b6/raw/215a6276f3d77a7f6ff01721d0f3a945f7bb495d/users-endpoint.json"
+                    response: "https://gist.githubusercontent.com/y21/6d9fc80d8404867855e54367007a10e3/raw/9f2a591deda539b4bfa6e2b258242cfc426ab82f/users.json"
                 },
                 // Super Smash Bros Brawl
                 {
