@@ -13,7 +13,7 @@ module.exports = {
         totalProfiles: /<td *align *= *"?center *"?> *\d+ *<\/td> *<td *align *= *"?center *"?><a *href *= *"\/game\/smashbrosxwii" *> *\d+ *<\/a>/,
         logins: /<td *align *= *"?center"? *> *\d+ *<\/td> *<td *align *= *"?center"? *> *<a *href *= *"\/game\/smashbrosxwii" *>\d+<\/a><\/td> *<td *align *= *center *>\d+<\/td><td align=center>\d+<\/td><td align=center>\d+<\/td>/i
     },
-    animal_crossing: {
+    animal_crossing_ds: {
         totalProfiles: /<td *align *= *"?center *"?> *(\d|&mdash;)+ *<\/td> *<td *align *= *"?center *"?><a *href *= *"\/game\/acrossingds" *> *(\d|&mdash;)+ *<\/a>/,
         logins: /<td *align *= *"?center"? *> *(\d|&mdash;)+ *<\/td> *<td *align *= *"?center"? *> *<a *href *= *"\/game\/acrossingds" *>(\d|&mdash;)+<\/a><\/td> *<td *align *= *center *>(\d|&mdash;)+<\/td><td align=center>(\d|&mdash;)+<\/td><td align=center>(\d|&mdash;)+<\/td>/i
     }
