@@ -1,5 +1,5 @@
 const { get } = require("https"),
-    { mkwii, ssbb, animal_crossing } = require("../RegExes");
+    { mkwii, ssbb, animal_crossing_ds } = require("../RegExes");
 try {
     /**
      * Updates the database.
@@ -75,13 +75,13 @@ try {
                         twentyfour_hours: ((str.match(ssbb.logins) || ["0"])[0].match(/\d+/g) || [null, null, null, "—"])[4]
                     }
                   },
-                  animal_crossing: {
-                  totalProfiles: ((str.match(animal_crossing.totalProfiles) || ["0"])[0].match(/\d+/) || ["0"])[0],
-                    online: ((str.match(animal_crossing.totalProfiles) || ["0"])[0].match(/\d+/g) || [null, "0"])[1],
+                  animal_crossing_ds: {
+                  totalProfiles: ((str.match(animal_crossing_ds.totalProfiles) || ["0"])[0].match(/\d+/) || ["0"])[0],
+                    online: ((str.match(animal_crossing_ds.totalProfiles) || ["0"])[0].match(/\d+/g) || [null, "0"])[1],
                     logins: {
-                        thirty_minutes: ((str.match(animal_crossing.logins) || ["0"])[0].match(/(\d|&mdash;)+/g) || [null, null, null, "—"])[2].replace(/&mdash;/g, "0"),
-                        four_hours: ((str.match(animal_crossing.logins) || ["0"])[0].match(/(\d|&mdash;)+/g) || [null, null, null, "—"])[3].replace(/&mdash;/g, "0"),
-                        twentyfour_hours: ((str.match(animal_crossing.logins) || ["0"])[0].match(/(\d|&mdash;)+/g) || [null, null, null, "—"])[4].replace(/&mdash;/g, "0")
+                        thirty_minutes: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g) || [null, null, null, "—"])[2].replace(/&mdash;/g, "0"),
+                        four_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g) || [null, null, null, "—"])[3].replace(/&mdash;/g, "0"),
+                        twentyfour_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g) || [null, null, null, "—"])[4].replace(/&mdash;/g, "0")
                     }
                   }
                 };
@@ -100,8 +100,8 @@ try {
                 });
                 
                 db.all("select * from acrossingds").then(r => {
-                    if (r.length === 0) return db.run(`insert into acrossingds values(${Number(result.animal_crossing.totalProfiles)}, ${Number(result.animal_crossing.online)}, '${Date.now()}', ${Number(result.animal_crossing.logins.thirty_minutes)}, ${Number(result.animal_crossing.logins.four_hours)}, ${Number(result.animal_crossing.logins.twentyfour_hours)}, null )`).catch(console.log);
-                    else db.run(`UPDATE acrossingds SET totalProfiles=${Number(result.animal_crossing.totalProfiles)}, online=${Number(result.animal_crossing.online)}, lastEdit='${Date.now()}', thirtyMinutes=${Number(result.animal_crossing.logins.thirty_minutes)}, fourHours=${Number(result.animal_crossing.logins.four_hours)}, twentyfourHours=${Number(result.animal_crossing.logins.twentyfour_hours)}`).catch(console.log);
+                    if (r.length === 0) return db.run(`insert into acrossingds values(${Number(result.animal_crossing_ds.totalProfiles)}, ${Number(result.animal_crossing_ds.online)}, '${Date.now()}', ${Number(result.animal_crossing_ds.logins.thirty_minutes)}, ${Number(result.animal_crossing_ds.logins.four_hours)}, ${Number(result.animal_crossing_ds.logins.twentyfour_hours)}, null )`).catch(console.log);
+                    else db.run(`UPDATE acrossingds SET totalProfiles=${Number(result.animal_crossing_ds.totalProfiles)}, online=${Number(result.animal_crossing_ds.online)}, lastEdit='${Date.now()}', thirtyMinutes=${Number(result.animal_crossing_ds.logins.thirty_minutes)}, fourHours=${Number(result.animal_crossing_ds.logins.four_hours)}, twentyfourHours=${Number(result.animal_crossing_ds.logins.twentyfour_hours)}`).catch(console.log);
                 }).catch(error => {
                     if (error.toString().includes("no such table: acrossingds")) {
                         return db.run("CREATE TABLE `acrossingds` ( `totalProfiles` INTEGER, `online` INTEGER, `lastEdit` TEXT, `thirtyMinutes` INTEGER, `fourHours` INTEGER, `twentyfourHours` INTEGER, `sevenDays` INTEGER )").catch(console.log);
