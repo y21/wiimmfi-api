@@ -12,9 +12,15 @@ new Vue({
                 supported_games: "supported.html"
             },
             changelog: [{
+                  date: "13th June 2018",
+                  contents: [
+                      "Animal Crossing (DS) is now supported by this api."
+                  ]
+                },
+                {
                     date: "1st June 2018",
                     contents: [
-                        "name can be passed as header and as a POST parameter now"
+                        "Name can be passed as header and as a POST parameter now"
                     ]
                 },
                 {
@@ -145,10 +151,21 @@ new Vue({
                     http_method: [
                         "get"
                     ],
-                    desc: "This endpoint returns the amount of players that have been connected to wiimmfi once with the game super smash bros brawl",
+                    desc: "This endpoint returns the amount of players that has been connected to wiimmfi once with the game super smash bros brawl",
                     format: "JSON",
                     parameters: [],
-                    response: "https://gist.githubusercontent.com/y21/8a742a17585ff92703b12696abc902b6/raw/f187af6037a498f8a1f169484170a2bd4b50a453/ssbb-amount-endpoint.json"
+                    response: "https://gist.githubusercontent.com/y21/6d9fc80d8404867855e54367007a10e3/raw/849d69718b7b14b4c814ec54a9d6311096bb52ec/ssbb_amount.json"
+                },
+                // Animal Crossing DS
+                {
+                    name: "acrossingds/amount",
+                    http_method: [
+                        "get"
+                    ],
+                    desc: "This endpoint returns the amount of players that has been connected to wiimmfi once with the game Animal Crossing using the console DS. (non-Japan version)",
+                    format: "JSON",
+                    parameters: [],
+                    response: "https://gist.github.com/y21/6d9fc80d8404867855e54367007a10e3/raw/849d69718b7b14b4c814ec54a9d6311096bb52ec/acrossingds_amount.json"
                 }
             ]
         }
