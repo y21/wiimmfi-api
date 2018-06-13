@@ -10,12 +10,16 @@ app.set("json spaces", 4);
 for(const d of fs.readdirSync("./routes/")){
     try {
         if (d !== "routes") {
-            if(d !== "ssbb") {
-                app.get("/" + d.split(".")[0], require(`./routes/${d}`));
-            } else {
+            if(d === "ssbb") {
                 for(const ssbbRoute of readdirSync("./routes/ssbb/")){
                     app.get("/ssbb/" + ssbbRoute.split(".")[0], require(`./routes/ssbb/${ssbbRoute}`));
                 }
+            } else if(d === "acrossingds") {
+                for(const acrRoute of readdirSync("./routes/acrossingds/")){
+                    app.get("/acrossingds/" + acrRoute.split(".")[0], require(`./routes/acrossingds/${acrRoute}`));
+                }
+            } else {
+              app.get("/" + d.split(".")[0], require(`./routes/${d}`));
             }
         }
     } catch(e) {
