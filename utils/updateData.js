@@ -70,9 +70,9 @@ try {
                   totalProfiles: ((str.match(ssbb.totalProfiles) || ["0"])[0].match(/\d+/) || ["0"])[0],
                     online: ((str.match(ssbb.totalProfiles) || ["0"])[0].match(/\d+/g) || [null, "0"])[1],
                     logins: {
-                        thirty_minutes: ((str.match(ssbb.logins) || ["0"])[0].match(/\d+/g) || [null, null, null, "—"])[2],
+                        thirty_minutes: ((str.match(ssbb.logins) || ["0"])[0].match(/\d+/g) || [null, null, "—"])[2],
                         four_hours: ((str.match(ssbb.logins) || ["0"])[0].match(/\d+/g) || [null, null, null, "—"])[3],
-                        twentyfour_hours: ((str.match(ssbb.logins) || ["0"])[0].match(/\d+/g) || [null, null, null, "—"])[4]
+                        twentyfour_hours: ((str.match(ssbb.logins) || ["0"])[0].match(/\d+/g) || [null, null, null, null, "—"])[4]
                     }
                   },
                   animal_crossing_ds: {
