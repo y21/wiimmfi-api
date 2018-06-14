@@ -79,9 +79,9 @@ try {
                   totalProfiles: ((str.match(animal_crossing_ds.totalProfiles) || ["0"])[0].match(/\d+/) || ["0"])[0],
                     online: ((str.match(animal_crossing_ds.totalProfiles) || ["0"])[0].match(/\d+/g) || [null, "0"])[1],
                     logins: {
-                        thirty_minutes: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g) || [null, null, null, "—"])[2].replace(/&mdash;/g, "0"),
+                        thirty_minutes: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g) || [null, null, "—"])[2].replace(/&mdash;/g, "0"),
                         four_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g) || [null, null, null, "—"])[3].replace(/&mdash;/g, "0"),
-                        twentyfour_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g) || [null, null, null, "—"])[4].replace(/&mdash;/g, "0")
+                        twentyfour_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g) || [null, null, null, null, "—"])[4].replace(/&mdash;/g, "0")
                     }
                   }
                 };
