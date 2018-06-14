@@ -77,15 +77,15 @@ try {
                   },
                   animal_crossing_ds: {
                   totalProfiles: ((str.match(animal_crossing_ds.totalProfiles) || ["0"])[0].match(/\d+/) || ["0"])[0],
-                    online: ((str.match(animal_crossing_ds.totalProfiles) || ["0"])[0].match(/\d+/g) || [null, "0"])[1],
+                    online: ((str.match(animal_crossing_ds.totalProfiles) || ["0"])[0].match(/\d+/g) || [null, "0"])[1] || "0",
                     logins: {
-                        thirty_minutes: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g) || [null, null, "—"])[2].replace(/&mdash;/g, "0"),
-                        four_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g) || [null, null, null, "—"])[3].replace(/&mdash;/g, "0"),
-                        twentyfour_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g) || [null, null, null, null, "—"])[4].replace(/&mdash;/g, "0")
+                        thirty_minutes: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g)[2] || "0").replace(/&mdash;/g, "0"),
+                        four_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g)[3] || "0").replace(/&mdash;/g, "0"),
+                        twentyfour_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g)[4] || "0").replace(/&mdash;/g, "0")
                     }
                   }
                 };
-
+              console.log(result);
                 // ---------------------
                 // Queries
                 // ---------------------
@@ -112,5 +112,5 @@ try {
         });
     };
 } catch (e) {
-    console.log(e);
+    console.log(e)
 }
