@@ -8,6 +8,7 @@ const { db } = require("../../Base");
  */
 module.exports = (req, res) => {
     db.get("SELECT * FROM games WHERE game=\"ssbb\"").then(result => {
+      if(!result) return res.json({ status: 500, message: "data is not initalized yet." });
         res.json({
             totalProfiles: result.totalProfiles,
             online: result.online,
