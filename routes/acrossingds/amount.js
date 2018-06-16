@@ -7,7 +7,8 @@ const { db } = require("../../Base");
  * @param res Response object (express)
  */
 module.exports = (req, res) => {
-    db.get("select * from acrossingds").then(result => {
+    db.get("SELECT * FROM games WHERE game=\"acrossingds\"").then(result => {
+      if(!result) return res.json({ status: 500, message: "data is not initalized yet." });
         res.json({
             totalProfiles: result.totalProfiles,
             online: result.online,
