@@ -92,15 +92,15 @@ try {
               
                 db.all("select * from games").then(r => {
                   if(r.some(element => element.game === "acrossingds")){
-                    db.run(`UPDATE games SET totalProfiles=${Number(result.animal_crossing_ds.totalProfiles)}, online=${Number(result.animal_crossing_ds.online)}, lastEdit='${Date.now()}', thirtyMinutes=${Number(result.animal_crossing_ds.logins.thirty_minutes)}, fourHours=${Number(result.animal_crossing_ds.logins.four_hours)}, twentyfourHours=${Number(result.animal_crossing_ds.logins.twentyfour_hours)} WHERE game="acrossingds"`).catch(console.log)
+                    db.run(`UPDATE games SET totalProfiles=${Number(result.animal_crossing_ds.totalProfiles)}, online=${Number(result.animal_crossing_ds.online)}, lastEdit='${Date.now()}', thirtyMinutes=${Number(result.animal_crossing_ds.logins.thirty_minutes)}, fourHours=${Number(result.animal_crossing_ds.logins.four_hours)}, twentyfourHours=${Number(result.animal_crossing_ds.logins.twentyfour_hours)} WHERE game="acrossingds"`).catch(console.log);
                   } else {
-                    db.run(`INSERT INTO games VALUES ("acrossingds", ${Number(result.animal_crossing_ds.totalProfiles)}, ${Number(result.animal_crossing_ds.online)}, '${Date.now()}', ${Number(result.animal_crossing_ds.logins.thirty_minutes)}, ${Number(result.animal_crossing_ds.logins.four_hours)}, ${Number(result.animal_crossing_ds.logins.twentyfour_hours)}, null )`).catch(console.log)
+                    db.run(`INSERT INTO games VALUES ("acrossingds", ${Number(result.animal_crossing_ds.totalProfiles)}, ${Number(result.animal_crossing_ds.online)}, '${Date.now()}', ${Number(result.animal_crossing_ds.logins.thirty_minutes)}, ${Number(result.animal_crossing_ds.logins.four_hours)}, ${Number(result.animal_crossing_ds.logins.twentyfour_hours)}, null )`).catch(console.log);
                   }
                   
                   if(r.some(element => element.game === "ssbb")){
-                    db.run(`UPDATE games SET totalProfiles=${Number(result.ssbb.totalProfiles)}, online=${Number(result.ssbb.online)}, lastEdit='${Date.now()}', thirtyMinutes=${Number(result.ssbb.logins.thirty_minutes)}, fourHours=${Number(result.ssbb.logins.four_hours)}, twentyfourHours=${Number(result.ssbb.logins.twentyfour_hours)} WHERE game="ssbb"`).catch(console.log)
+                    db.run(`UPDATE games SET totalProfiles=${Number(result.ssbb.totalProfiles)}, online=${Number(result.ssbb.online)}, lastEdit='${Date.now()}', thirtyMinutes=${Number(result.ssbb.logins.thirty_minutes)}, fourHours=${Number(result.ssbb.logins.four_hours)}, twentyfourHours=${Number(result.ssbb.logins.twentyfour_hours)} WHERE game="ssbb"`).catch(console.log);
                   } else {
-                    db.run(`INSERT INTO games VALUES ("ssbb", ${Number(result.ssbb.totalProfiles)}, ${Number(result.ssbb.online)}, '${Date.now()}', ${Number(result.ssbb.logins.thirty_minutes)}, ${Number(result.ssbb.logins.four_hours)}, ${Number(result.ssbb.logins.twentyfour_hours)}, null )`).catch(console.log)
+                    db.run(`INSERT INTO games VALUES ("ssbb", ${Number(result.ssbb.totalProfiles)}, ${Number(result.ssbb.online)}, '${Date.now()}', ${Number(result.ssbb.logins.thirty_minutes)}, ${Number(result.ssbb.logins.four_hours)}, ${Number(result.ssbb.logins.twentyfour_hours)}, null )`).catch(console.log);
                   }
                   
                   
