@@ -7,7 +7,7 @@ const { db } = require("../../Base");
  * @param res Response object (express)
  */
 module.exports = (req, res) => {
-    db.get("select * from ssbb").then(result => {
+    db.get("SELECT * FROM games WHERE game=\"ssbb\"").then(result => {
         res.json({
             totalProfiles: result.totalProfiles,
             online: result.online,
