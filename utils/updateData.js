@@ -76,35 +76,37 @@ try {
                     }
                   },
                   animal_crossing_ds: {
-                  totalProfiles: ((str.match(animal_crossing_ds.totalProfiles) || ["0"])[0].match(/\d+/) || ["0"])[0],
-                    online: ((str.match(animal_crossing_ds.totalProfiles) || ["0"])[0].match(/\d+/g) || [null, "0"])[1] || "0",
+                  totalProfiles: ((str.match(animal_crossing_ds.totalProfiles) || ["0"])[0].match(/\d+/) || [null, "0"])[1] || "0",
+                    online: ((str.match(animal_crossing_ds.totalProfiles) || ["0"])[0].match(/\d+/g) || [null, "0"])[2] || "0",
                     logins: {
-                        thirty_minutes: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g)[2] || "0").replace(/&mdash;/g, "0"),
-                        four_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g)[3] || "0").replace(/&mdash;/g, "0"),
-                        twentyfour_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g)[4] || "0").replace(/&mdash;/g, "0")
+                        thirty_minutes: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g)[3] || "0").replace(/&mdash;/g, "0"),
+                        four_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g)[4] || "0").replace(/&mdash;/g, "0"),
+                        twentyfour_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g)[5] || "0").replace(/&mdash;/g, "0")
                     }
                   }
                 };
-                
+              
                 // ---------------------
                 // Queries
                 // ---------------------
-
-                db.all("select * from ssbb").then(r => {
-                    if (r.length === 0) return db.run(`insert into ssbb values(${Number(result.ssbb.totalProfiles)}, ${Number(result.ssbb.online)}, '${Date.now()}', ${Number(result.ssbb.logins.thirty_minutes)}, ${Number(result.ssbb.logins.four_hours)}, ${Number(result.ssbb.logins.twentyfour_hours)}, null )`).catch(console.log);
-                    else db.run(`UPDATE ssbb SET totalProfiles=${Number(result.ssbb.totalProfiles)}, online=${Number(result.ssbb.online)}, lastEdit='${Date.now()}', thirtyMinutes=${Number(result.ssbb.logins.thirty_minutes)}, fourHours=${Number(result.ssbb.logins.four_hours)}, twentyfourHours=${Number(result.ssbb.logins.twentyfour_hours)}`).catch(console.log);
+              
+                db.all("select * from games").then(r => {
+                  if(r.some(element => element.game === "acrossingds")){
+                    db.run(`UPDATE games SET totalProfiles=${Number(result.animal_crossing_ds.totalProfiles)}, online=${Number(result.animal_crossing_ds.online)}, lastEdit='${Date.now()}', thirtyMinutes=${Number(result.animal_crossing_ds.logins.thirty_minutes)}, fourHours=${Number(result.animal_crossing_ds.logins.four_hours)}, twentyfourHours=${Number(result.animal_crossing_ds.logins.twentyfour_hours)} WHERE game="acrossingds"`).catch(console.log)
+                  } else {
+                    db.run(`INSERT INTO games VALUES ("acrossingds", ${Number(result.animal_crossing_ds.totalProfiles)}, ${Number(result.animal_crossing_ds.online)}, '${Date.now()}', ${Number(result.animal_crossing_ds.logins.thirty_minutes)}, ${Number(result.animal_crossing_ds.logins.four_hours)}, ${Number(result.animal_crossing_ds.logins.twentyfour_hours)}, null )`).catch(console.log)
+                  }
+                  
+                  if(r.some(element => element.game === "ssbb")){
+                    db.run(`UPDATE games SET totalProfiles=${Number(result.ssbb.totalProfiles)}, online=${Number(result.ssbb.online)}, lastEdit='${Date.now()}', thirtyMinutes=${Number(result.ssbb.logins.thirty_minutes)}, fourHours=${Number(result.ssbb.logins.four_hours)}, twentyfourHours=${Number(result.ssbb.logins.twentyfour_hours)} WHERE game="ssbb"`).catch(console.log)
+                  } else {
+                    db.run(`INSERT INTO games VALUES ("ssbb", ${Number(result.ssbb.totalProfiles)}, ${Number(result.ssbb.online)}, '${Date.now()}', ${Number(result.ssbb.logins.thirty_minutes)}, ${Number(result.ssbb.logins.four_hours)}, ${Number(result.ssbb.logins.twentyfour_hours)}, null )`).catch(console.log)
+                  }
+                  
+                  
                 }).catch(error => {
-                    if (error.toString().includes("no such table: ssbb")) {
-                        return db.run("CREATE TABLE `ssbb` ( `totalProfiles` INTEGER, `online` INTEGER, `lastEdit` TEXT, `thirtyMinutes` INTEGER, `fourHours` INTEGER, `twentyfourHours` INTEGER, `sevenDays` INTEGER )").catch(console.log);
-                    } else console.log(error.toString());
-                });
-                
-                db.all("select * from acrossingds").then(r => {
-                    if (r.length === 0) return db.run(`insert into acrossingds values(${Number(result.animal_crossing_ds.totalProfiles)}, ${Number(result.animal_crossing_ds.online)}, '${Date.now()}', ${Number(result.animal_crossing_ds.logins.thirty_minutes)}, ${Number(result.animal_crossing_ds.logins.four_hours)}, ${Number(result.animal_crossing_ds.logins.twentyfour_hours)}, null )`).catch(console.log);
-                    else db.run(`UPDATE acrossingds SET totalProfiles=${Number(result.animal_crossing_ds.totalProfiles)}, online=${Number(result.animal_crossing_ds.online)}, lastEdit='${Date.now()}', thirtyMinutes=${Number(result.animal_crossing_ds.logins.thirty_minutes)}, fourHours=${Number(result.animal_crossing_ds.logins.four_hours)}, twentyfourHours=${Number(result.animal_crossing_ds.logins.twentyfour_hours)}`).catch(console.log);
-                }).catch(error => {
-                    if (error.toString().includes("no such table: acrossingds")) {
-                        return db.run("CREATE TABLE `acrossingds` ( `totalProfiles` INTEGER, `online` INTEGER, `lastEdit` TEXT, `thirtyMinutes` INTEGER, `fourHours` INTEGER, `twentyfourHours` INTEGER, `sevenDays` INTEGER )").catch(console.log);
+                  if (error.toString().includes("no such table: games")) {
+                        return db.run("CREATE TABLE `games` ( `game` TEXT, `totalProfiles` INTEGER, `online` INTEGER, `lastEdit` TEXT, `thirtyMinutes` INTEGER, `fourHours` INTEGER, `twentyfourHours` INTEGER, `sevenDays` INTEGER )").catch(console.log);
                     } else console.log(error.toString());
                 });
                 
