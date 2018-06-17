@@ -76,16 +76,22 @@ try {
                     }
                   },
                   animal_crossing_ds: {
-                  totalProfiles: ((str.match(animal_crossing_ds.totalProfiles) || ["0"])[0].match(/\d+/) || [null, "0"])[1] || "0",
-                    online: ((str.match(animal_crossing_ds.totalProfiles) || ["0"])[0].match(/\d+/g) || [null, "0"])[2] || "0",
+                  totalProfiles: (str.match(animal_crossing_ds) || ["0"])[0].match(/\d+/g)[4],
+                    online: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[5],
                     logins: {
-                        thirty_minutes: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g)[3] || "0").replace(/&mdash;/g, "0"),
-                        four_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g)[4] || "0").replace(/&mdash;/g, "0"),
-                        twentyfour_hours: ((str.match(animal_crossing_ds.logins) || ["0"])[0].match(/(\d|&mdash;)+/g)[5] || "0").replace(/&mdash;/g, "0")
+                        thirty_minutes: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[6],
+                        four_hours: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[7],
+                        twentyfour_hours: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[8]
                     }
                   }
                 };
               
+                // &mdash; fixes
+                if(isNaN(result.animal_crossing_ds.online)) result.animal_crossing_ds.online = 0;
+                if(isNaN(result.animal_crossing_ds.logins.four_hours)) result.animal_crossing_ds.logins.thirty_minutes = 0;
+                if(isNaN(result.animal_crossing_ds.logins.four_hours)) result.animal_crossing_ds.logins.four_hours = 0;
+                if(isNaN(result.animal_crossing_ds.logins.twentyfour_hours)) result.animal_crossing_ds.logins.twentyfour_hours = 0;
+                
                 // ---------------------
                 // Queries
                 // ---------------------
