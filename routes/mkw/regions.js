@@ -1,4 +1,4 @@
-const { db } = require("../Base");
+const { db } = require("../../Base");
 
 /**
  * Regions endpoint;
