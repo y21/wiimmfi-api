@@ -35,9 +35,20 @@ for (const d of fs.readdirSync("./post-routes/")) {
     }
 }
 
-
 // Docs
 app.use(express.static("./docs/"));
+
+// Deprecation note; will be removed soon
+app.get("/:route", (req, res) => {
+    if(!fs.readdirSync("./routes/mkw").includes(req.params.route + ".js")) return res.send({
+        status: 400,
+        error: "Endpoint does not exist."
+    });
+    res.json({
+        status: 400,
+        error: `This endpoint is deprecated. Please use /mkw/${req.params.route} instead.`
+    });
+});
 
 setTimeout(() => Base.utils.updateData(Base.db), 5000); // wait 5 seconds after startup
 setInterval(() => Base.utils.updateData(Base.db), 30000); // update data every 30 seconds
