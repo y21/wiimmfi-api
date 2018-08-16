@@ -1,6 +1,6 @@
 {
   "name": "wiimmfi-api",
-  "version": "1.0.1.2",
+  "version": "1.0.1",
   "description": "Wiimmfi API",
   "main": "server.js",
   "scripts": {
