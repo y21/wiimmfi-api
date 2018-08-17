@@ -16,8 +16,12 @@ app.set("json spaces", 4);
 // GET Routes (endpoints)
 for (const d of fs.readdirSync("./routes/")) {
     try {
-        for(const e of fs.readdirSync("./routes/" + d)) {
-            app.get(`/${d}/${e.split(".")[0]}`, require(`./routes/${d}/${e}`));
+        if (!d.endsWith(".js")) {
+            for(const e of fs.readdirSync("./routes/" + d)) {
+                app.get(`/${d}/${e.split(".")[0]}`, require(`./routes/${d}/${e}`));
+            }
+        } else {
+            app.get(`/${d.split(".")[0]}`, require(`./routes/${d}`));
         }
     } catch(e) {
         console.log(e.toString());
