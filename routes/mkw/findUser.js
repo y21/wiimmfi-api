@@ -17,6 +17,8 @@ module.exports = (req, res) => {
 
             // Automatically escape special regex characters
             let escapedNickname = nameParameter;
+            if(escapedNickname.length && escapedNickname.length > 0) escapedNickname = escapedNickname[0];
+            if(typeof escapedNickname !== "string") return res.json({status: 400, message: "name header is not typeof array."});
             ["*", "^", "$", "?", "\\d", "\\w", "\\n", "\\s", "(", ")", "+", "[", "]", "-"].map(r => escapedNickname = escapedNickname.replace(new RegExp("\\"+r, "g"), "\\" + r));
 
             const userMatch = (str.match(new RegExp("<td align=\"center\">(CTGP|Eur|Jap|Ame)\\/?\\d?<\\/td>\\s*<td align=\"center\">.{1,16}<\\/td>\\s*<td align=\"center\">.{1,16}<\\/td>\\s*<td align=\"center\".{1,128}<\\/td>\\s*<td align=\"center\">.{1,16}<\\/td>\\s*<td align=\"center\">.{1,16}<\\/td>\\s*<td>" + ((req.query.flags || "").split(",").includes("i") ? `.*${escapedNickname}.*` : escapedNickname) + "<\\/td>", "g")) || []).map(e => {
