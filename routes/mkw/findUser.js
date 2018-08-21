@@ -17,7 +17,7 @@ module.exports = (req, res) => {
 
             // Automatically escape special regex characters
             let escapedNickname = nameParameter;
-            if(escapedNickname.length && escapedNickname.length > 0) escapedNickname = escapedNickname[0];
+            if(escapedNickname.constructor.name === "Array") escapedNickname = escapedNickname[0];
             if(typeof escapedNickname !== "string") return res.json({status: 400, message: "name header is not typeof array."});
             ["*", "^", "$", "?", "\\d", "\\w", "\\n", "\\s", "(", ")", "+", "[", "]", "-"].map(r => escapedNickname = escapedNickname.replace(new RegExp("\\"+r, "g"), "\\" + r));
 
