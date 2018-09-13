@@ -73,3 +73,10 @@ table {
 	padding: 3px;
 	margin-left: 5px;
 }
+
+#note {
+    background-color: #600000;
+    color: white;
+    font-family: "Consolas", Arial;
+    padding: 15px;
+}
