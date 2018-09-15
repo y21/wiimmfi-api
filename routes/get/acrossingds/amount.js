@@ -1,13 +1,13 @@
-const { db } = require("../../Base");
+const { db } = require("../../../Base");
 
 /**
- * Amount endpoint (ssbb);
+ * Amount endpoint (acrossingds);
  *
  * @param req Request object (express)
  * @param res Response object (express)
  */
 module.exports = (req, res) => {
-    db.get("SELECT * FROM games WHERE game=\"ssbb\"").then(result => {
+    db.get("SELECT * FROM games WHERE game=\"acrossingds\"").then(result => {
       if(!result) return res.json({ status: 500, message: "data is not initalized yet." });
         res.json({
             totalProfiles: result.totalProfiles,

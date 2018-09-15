@@ -1,5 +1,5 @@
 const { get } = require("https"),
-    { bans } = require("../RegExes");
+    { bans } = require("../../RegExes");
 
 /**
  * Bans endpoint (wiimmfi bans in general)
@@ -16,6 +16,22 @@ module.exports = (req, res) => {
         });
 
         re.on("end", () => {
+            /*[
+                {
+                    name: "hi",
+                    friendcode: "1234-5678-9012",
+                    game: "Mario Kart Wii",
+                    ban_id: "1",
+                    expires: "12m, 21:02:53",
+                    expired: null,
+                    reason: "Other",
+                    ban: {
+                        category: "Room kick",
+                        info: "Room owner kicked a guest."
+                    }
+                }
+            ]*/
+
             let col1s = str.match(bans.col1),
                 result = new Array();
             col1s = col1s.slice(0, req.query.limit || 10);
@@ -36,4 +52,4 @@ module.exports = (req, res) => {
             res.send(result);
         });
     });
-}
+};

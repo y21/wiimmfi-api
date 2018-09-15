@@ -21,10 +21,10 @@ module.exports = (req, res) => {
                 result.subhead = result.subhead.slice(0, -6);
                 result.ends = result.ends.substr(result.ends.search(/ on/) + 4);
                 result.description = result.description.substr(result.description.indexOf("<p>") + 3);
-                result.description = result.description.slice(0, -17)
+                result.description = result.description.slice(0, -17);
                 {
                     // scope-blocked variables as temp vars
-                    let player = result.topGhost.substr(result.topGhost.indexOf("mii-font") + 10)
+                    let player = result.topGhost.substr(result.topGhost.indexOf("mii-font") + 10);
                     let country = result.topGhost.substr(result.topGhost.search(/title *= *"? *[A-Z][a-z]+ *"?(?= height)/));
                     country = country.substr(country.indexOf("\"") + 1);
                     result.topGhost = {
@@ -34,10 +34,10 @@ module.exports = (req, res) => {
                 }
                 res.json(result);
             });
-        })
+        });
     } catch (e) {
         res.json({
             error: "An error occured while processing..."
         });
     }
-}
+};
