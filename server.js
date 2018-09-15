@@ -19,10 +19,10 @@ for (const httpm of fs.readdirSync("./routes/")) {
     for (const cat of fs.readdirSync(`./routes/${httpm}/`)) {
         if (!cat.endsWith(".js")) {
             for (const endpoint of fs.readdirSync(`./routes/${httpm}/${cat}`)) {
-                app[httpm](`/${cat}/${endpoint.split(".")[0]}`, require(`./routes/${httpm}/${cat}/${endpoint}`))
+                app[httpm](`/${cat}/${endpoint.split(".")[0]}`, require(`./routes/${httpm}/${cat}/${endpoint}`));
             }
         } else {
-            app[httpm](`/${cat.split(".")[0]}`, require(`./routes/${httpm}/${cat}`))
+            app[httpm](`/${cat.split(".")[0]}`, require(`./routes/${httpm}/${cat}`));
         }
     }
 }
