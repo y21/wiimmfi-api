@@ -34,7 +34,7 @@ module.exports = (req, res) => {
                 }
                 res.json(result);
             });
-        })
+        });
     } catch (e) {
         res.json({
             error: "An error occured while processing..."
