@@ -13,29 +13,17 @@ app.use(bodyParser.urlencoded({
 }));
 app.set("json spaces", 4);
 
-// GET Routes (endpoints)
-for (const d of fs.readdirSync("./routes/")) {
-    try {
-        if (!d.endsWith(".js")) {
-            for(const e of fs.readdirSync("./routes/" + d)) {
-                app.get(`/${d}/${e.split(".")[0]}`, require(`./routes/${d}/${e}`));
+
+// Identify HTTP methods and endpoints
+for (const httpm of fs.readdirSync("./routes/")) {
+    for (const cat of fs.readdirSync(`./routes/${httpm}/`)) {
+        if (!cat.endsWith(".js")) {
+            for (const endpoint of fs.readdirSync(`./routes/${httpm}/${cat}`)) {
+                app[httpm](`/${cat}/${endpoint.split(".")[0]}`, require(`./routes/${httpm}/${cat}/${endpoint}`))
             }
         } else {
-            app.get(`/${d.split(".")[0]}`, require(`./routes/${d}`));
+            app[httpm](`/${cat.split(".")[0]}`, require(`./routes/${httpm}/${cat}`))
         }
-    } catch(e) {
-        console.log(e.toString());
-    }
-}
-
-// POST Routes (endpoints)
-for (const d of fs.readdirSync("./post-routes/")) {
-    try {
-        for(const e of fs.readdirSync("./post-routes/" + d)) {
-            app.post(`/${d}/${e.split(".")[0]}`, require(`./post-routes/${d}/${e}`));
-        }
-    } catch (e) {
-        console.log(e.toString());
     }
 }
 
@@ -44,7 +32,7 @@ app.use(express.static("./docs/"));
 
 // Deprecation note; will be removed soon
 app.get("/:route", (req, res) => {
-    if(!fs.readdirSync("./routes/mkw").includes(req.params.route + ".js")) return res.send({
+    if(!fs.readdirSync("./routes/get/mkw").includes(req.params.route + ".js")) return res.send({
         status: 400,
         error: "Endpoint does not exist."
     });
