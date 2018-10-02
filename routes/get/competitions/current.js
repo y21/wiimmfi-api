@@ -10,7 +10,7 @@ module.exports = (req, res) => {
                 let result = {
                     name: str.match(/<h2 *class *= *"? *subhead *"? *>.+<\/h2>/)[0],
                     subhead: str.match(/<div *class *= *"? *subhead *"? *>.+<\/div>/)[0].replace(/<span *title *= *\'.*\'>|<\/span>/g, ""),
-                    ends: str.match(/The competition ends on \w+ \d+ \w+ \d+, \d+:\d+ (PM|AM)/)[0],
+                    ends: str.match(/The *competition *ends *on *\w+ *\d+ *\w+ *\d+, *\d+:\d+ *(PM|AM)/)[0],
                     description: str.match(/Wii description of the competition *<\/b> *<\p>.*<\/div> *<\/a> *<\/span>/)[0].replace(/<br\/?>/g, "\n"),
                     topGhost: str.match(/1st *<\/td> *<td *align *= *"?right"? *>\d(\d|:)(\d+\.|\.)\d{3}.*/)[0]
                 };
