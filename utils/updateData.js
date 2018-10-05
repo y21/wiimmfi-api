@@ -65,27 +65,29 @@ try {
                 str += d;
             });
             re.on("end", () => {
+                let temp = ssbb.totalProfiles.exec(str);
                 result = {
-                  ssbb: {
-                  totalProfiles: ((str.match(ssbb.totalProfiles) || ["0"])[0].match(/\d+/) || ["0"])[0],
-                    online: ((str.match(ssbb.totalProfiles) || ["0"])[0].match(/\d+/g) || [null, "0"])[1],
-                    logins: {
-                        thirty_minutes: ((str.match(ssbb.logins) || ["0"])[0].match(/\d+/g) || [null, null, "—"])[2],
-                        four_hours: ((str.match(ssbb.logins) || ["0"])[0].match(/\d+/g) || [null, null, null, "—"])[3],
-                        twentyfour_hours: ((str.match(ssbb.logins) || ["0"])[0].match(/\d+/g) || [null, null, null, null, "—"])[4]
+                    ssbb: {
+                        totalProfiles: parseInt(temp[1]) || "-",
+                        online: parseInt(temp[2]) || "-",
+                        logins: {
+                            thirty_minutes: parseInt(temp[5]) || "-",
+                            four_hours: parseInt(temp[6]) || "-",
+                            twentyfour_hours: parseInt(temp[7]) || "-"
+                        }
+                    },
+                    animal_crossing_ds: {
+                        totalProfiles: (str.match(animal_crossing_ds) || ["0"])[0].match(/\d+/g)[4],
+                        online: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[5],
+                        logins: {
+                            thirty_minutes: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[6],
+                            four_hours: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[7],
+                            twentyfour_hours: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[8]
+                        }
                     }
-                  },
-                  animal_crossing_ds: {
-                  totalProfiles: (str.match(animal_crossing_ds) || ["0"])[0].match(/\d+/g)[4],
-                    online: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[5],
-                    logins: {
-                        thirty_minutes: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[6],
-                        four_hours: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[7],
-                        twentyfour_hours: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[8]
-                    }
-                  }
                 };
-              
+                console.log(result.ssbb);
+
                 // &mdash; fixes
                 if(isNaN(result.animal_crossing_ds.online)) result.animal_crossing_ds.online = 0;
                 if(isNaN(result.animal_crossing_ds.logins.four_hours)) result.animal_crossing_ds.logins.thirty_minutes = 0;
