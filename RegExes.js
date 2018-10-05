@@ -10,10 +10,9 @@ module.exports = {
         ame: /<td align *= *"center" *> *Ame\/1 *<\/td *>/i
     },
     ssbb: {
-        totalProfiles: /<td *align *= *"?center *"?> *\d+ *<\/td> *<td *align *= *"?center *"?><a *href *= *"\/game\/smashbrosxwii" *> *\d+ *<\/a>/,
-        logins: /<td *align *= *"?center"? *> *\d+ *<\/td> *<td *align *= *"?center"? *> *<a *href *= *"\/game\/smashbrosxwii" *>\d+<\/a><\/td> *<td *align *= *center *>\d+<\/td><td align=center>\d+<\/td><td align=center>\d+<\/td>/i
+        totalProfiles: /Super Smash Bros\. Brawl.+\n[^\d]+(\d+)[^\d]+(\d+|—)[^\d]+(\d+|—)[^\d]+(\d+|—)[^\d]+(\d+|—)[^\d]+(\d+|—)[^\d]+(\d+|—)/g
     },
-    animal_crossing_ds: /<tr class="tr0"><td title="acrossingds">ADME<\/td>.+\s+.+/g,
+    animal_crossing_ds: /Animal Crossing DS.+\n[^&\d]+(\d+|&mdash;)[^&\d]+(\d+|&mdash;)[^&\d]+(\d+|&mdash;)[^&\d]+(\d+|&mdash;)[^&\d]+(\d+|&mdash;)[^&\d]+(\d+|&mdash;)[^&\d]+(\d+|&mdash;)/g,
     bans: {
         col1: /<tr *id *= *"?pager-\d{1,10}-\d{1,3}-0 *class *= *"?anchor *tr[01] *"?> *<td *align *= *"?center"? *>\d+.+/g,
         col1_ban_id: /\d{4,8}(?=<\/td> *<td *align *="?center *"? *class *= *"?nobr)/g
