@@ -65,24 +65,27 @@ try {
                 str += d;
             });
             re.on("end", () => {
-                let temp = ssbb.totalProfiles.exec(str);
+                let temp = {
+                    ssbb: ssbb.totalProfiles.exec(str),
+                    acds: animal_crossing_ds.exec(str)
+                };
                 result = {
                     ssbb: {
-                        totalProfiles: parseInt(temp[1]) || "-",
-                        online: parseInt(temp[2]) || "-",
+                        totalProfiles: parseInt(temp.ssbb[1]) || 0,
+                        online: parseInt(temp.ssbb[2]) || 0,
                         logins: {
-                            thirty_minutes: parseInt(temp[5]) || "-",
-                            four_hours: parseInt(temp[6]) || "-",
-                            twentyfour_hours: parseInt(temp[7]) || "-"
+                            thirty_minutes: parseInt(temp.ssbb[5]) || 0,
+                            four_hours: parseInt(temp.ssbb[6]) || 0,
+                            twentyfour_hours: parseInt(temp.ssbb[7]) || 0
                         }
                     },
                     animal_crossing_ds: {
-                        totalProfiles: (str.match(animal_crossing_ds) || ["0"])[0].match(/\d+/g)[4],
-                        online: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[5],
+                        totalProfiles: parseInt(temp.acds[1]) || 0,
+                        online: parseInt(temp.acds[2]) || 0,
                         logins: {
-                            thirty_minutes: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[6],
-                            four_hours: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[7],
-                            twentyfour_hours: (str.match(animal_crossing_ds) || ["0"])[0].match(/(\d|&mdash;)+/g)[8]
+                            thirty_minutes: parseInt(temp.acds[3]) || 0,
+                            four_hours: parseInt(temp.acds[4]) || 0,
+                            twentyfour_hours: parseInt(temp.acds[5]) || 0
                         }
                     }
                 };
