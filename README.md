@@ -1,5 +1,7 @@
 # wiimmfi-api
 
+### Important: Wiimmfi frontend has changed and almost every regular expression stopped working, meaning that you will most likely get wrong data. I am working on new ones. (as of 10/31)
+
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9ee46ec893de4624b946b9bf712d6171)](https://app.codacy.com/app/y21/wiimmfi-api?utm_source=github.com&utm_medium=referral&utm_content=y21/wiimmfi-api&utm_campaign=badger)
 
 This is a public API to get information about the following games/services:
