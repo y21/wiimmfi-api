@@ -1,5 +1,12 @@
 package cache
 
+import (
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"regexp"
+)
+
 type mkwGameData struct {
 	Worldwides   int `json:"worldwides"`
 	Continentals int `json:"continentals"`
@@ -36,7 +43,32 @@ type Cache struct {
 	Games     []game `json:"games"`
 }
 
-// Update function fetches new data from origin API and updates internal cache
-func (cache *Cache) Update() {
+var roomTypeRegex = regexp.MustCompile(`(Private|Continental|Worldwide) room`)
 
+// Update function fetches new data from origin API and updates internal cache
+func (c *Cache) Update() {
+	resp, err := http.Get("https://wiimmfi.de/mkw")
+	if err != nil {
+		fmt.Printf("error while requesting wiimmfi.de/mkw: %v", err)
+		return
+	}
+	defer resp.Body.Close()
+	bytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Printf("error while reading body: %v", err)
+		return
+	}
+	bodyStr := string(bytes)
+	roomTypes := roomTypeRegex.FindAllStringSubmatch(bodyStr, -1)
+	for _, el := range roomTypes {
+		switch el[1] {
+		case "Worldwide":
+			c.Mkw.Data.Worldwides++
+		case "Private":
+			c.Mkw.Data.Privates++
+		case "Continental":
+			c.Mkw.Data.Continentals++
+		}
+	}
+	
 }
