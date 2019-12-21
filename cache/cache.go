@@ -14,9 +14,19 @@ type mkwGameData struct {
 	Players      int `json:"players"`
 }
 
+type mkwRegionData struct {
+	CTGP int `json:"ctgp"`
+	Ame  int `json:"ame"`
+	Jap  int `json:"jap"`
+	Eur  int `json:"eur"`
+}
+
 type mkw struct {
-	FullName string      `json:"fullName"`
-	Data     mkwGameData `json:"data"`
+	FullName string `json:"fullName"`
+	Data     struct {
+		Rooms   mkwGameData   `json:"rooms`
+		Regions mkwRegionData `json:"regions"`
+	} `json:"data"`
 }
 
 type loginData struct {
@@ -43,7 +53,10 @@ type Cache struct {
 	Games     []game `json:"games"`
 }
 
-var roomTypeRegex = regexp.MustCompile(`(Private|Continental|Worldwide) room`)
+var (
+	roomTypeRegex = regexp.MustCompile(`(Private|Continental|Worldwide) room`)
+	regionRegex   = regexp.MustCompile(`(CTGP|Eur/2|Jap/0|Ame/1)`)
+)
 
 // Update function fetches new data from origin API and updates internal cache
 func (c *Cache) Update() {
@@ -59,15 +72,30 @@ func (c *Cache) Update() {
 		return
 	}
 	bodyStr := string(bytes)
+	// Room types
 	roomTypes := roomTypeRegex.FindAllStringSubmatch(bodyStr, -1)
 	for _, el := range roomTypes {
 		switch el[1] {
 		case "Worldwide":
-			c.Mkw.Data.Worldwides++
+			c.Mkw.Data.Rooms.Worldwides++
 		case "Private":
-			c.Mkw.Data.Privates++
+			c.Mkw.Data.Rooms.Privates++
 		case "Continental":
-			c.Mkw.Data.Continentals++
+			c.Mkw.Data.Rooms.Continentals++
+		}
+	}
+	// Regions
+	regions := regionRegex.FindAllString(bodyStr, -1)
+	for _, el := range regions {
+		switch el {
+		case "CTGP":
+			c.Mkw.Data.Regions.CTGP++
+		case "Eur/2":
+			c.Mkw.Data.Regions.Eur++
+		case "Jap/0":
+			c.Mkw.Data.Regions.Jap++
+		case "Ame/1":
+			c.Mkw.Data.Regions.Ame++ 
 		}
 	}
 	
