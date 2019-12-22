@@ -29,6 +29,11 @@ func main() {
 		json.NewEncoder(w).Encode(&httpCache.Mkw.Data.Rooms)
 	})
 
+	router.HandleFunc("/api/" + apiVersion + "/mkw/regions", func (w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(&httpCache.Mkw.Data.Regions)
+	})
+
 	fmt.Println("Webserver started")
 	http.ListenAndServe(":3000", router)
 }
