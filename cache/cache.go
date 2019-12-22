@@ -7,50 +7,56 @@ import (
 	"regexp"
 )
 
-type mkwGameData struct {
+// MkwGameData represents game data
+type MkwGameData struct {
 	Worldwides   int `json:"worldwides"`
 	Continentals int `json:"continentals"`
 	Privates     int `json:"privates"`
 	Players      int `json:"players"`
 }
 
-type mkwRegionData struct {
+// MkwRegionData represents regions
+type MkwRegionData struct {
 	CTGP int `json:"ctgp"`
 	Ame  int `json:"ame"`
 	Jap  int `json:"jap"`
 	Eur  int `json:"eur"`
 }
 
-type mkw struct {
+// Mkw represents game data for game MKW
+type Mkw struct {
 	FullName string `json:"fullName"`
 	Data     struct {
-		Rooms   mkwGameData   `json:"rooms`
-		Regions mkwRegionData `json:"regions"`
+		Rooms   MkwGameData   `json:"rooms"`
+		Regions MkwRegionData `json:"regions"`
 	} `json:"data"`
 }
 
-type loginData struct {
+// LoginData represents login data for a game
+type LoginData struct {
 	ThirtyMinutes   int `json:"thirty_minutes"`
 	FourHours       int `json:"four_hours"`
 	TwentyfourHours int `json:"twentyfour_hours"`
 }
 
-type gameData struct {
+// GameData represents data for a game
+type GameData struct {
 	TotalProfiles int       `json:"totalProfiles"`
 	Online        int       `json:"online"`
-	Logins        loginData `json:"logins"`
+	Logins        LoginData `json:"logins"`
 }
 
-type game struct {
+// Game represents a game
+type Game struct {
 	FullName string   `json:"fullName"`
-	Data     gameData `json:"data"`
+	Data     GameData `json:"data"`
 }
 
 // Cache holds cached data
 type Cache struct {
 	LastCheck string `json:"lastCheck"`
-	Mkw       mkw    `json:"mkw"`
-	Games     []game `json:"games"`
+	Mkw       Mkw    `json:"mkw"`
+	Games     []Game `json:"games"`
 }
 
 var (
@@ -95,8 +101,8 @@ func (c *Cache) Update() {
 		case "Jap/0":
 			c.Mkw.Data.Regions.Jap++
 		case "Ame/1":
-			c.Mkw.Data.Regions.Ame++ 
+			c.Mkw.Data.Regions.Ame++
 		}
 	}
-	
+
 }
