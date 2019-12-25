@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"regexp"
+	"strconv"
 )
 
 // MkwGameData represents game data
@@ -32,36 +33,33 @@ type Mkw struct {
 	} `json:"data"`
 }
 
-// LoginData represents login data for a game
-type LoginData struct {
-	ThirtyMinutes   int `json:"thirty_minutes"`
-	FourHours       int `json:"four_hours"`
-	TwentyfourHours int `json:"twentyfour_hours"`
-}
-
 // GameData represents data for a game
 type GameData struct {
-	TotalProfiles int       `json:"totalProfiles"`
-	Online        int       `json:"online"`
-	Logins        LoginData `json:"logins"`
+	TotalProfiles int `json:"totalProfiles"`
+	Online        int `json:"online"`
+	Logins        int `json:"logins"`
 }
 
 // Game represents a game
 type Game struct {
-	FullName string   `json:"fullName"`
-	Data     GameData `json:"data"`
+	Data GameData `json:"data"`
 }
 
 // Cache holds cached data
 type Cache struct {
-	LastCheck string `json:"lastCheck"`
-	Mkw       Mkw    `json:"mkw"`
-	Games     []Game `json:"games"`
+	LastCheck string          `json:"lastCheck"`
+	Mkw       Mkw             `json:"mkw"`
+	Games     map[string]Game `json:"games"`
 }
 
 var (
-	roomTypeRegex = regexp.MustCompile(`(Private|Continental|Worldwide) room`)
-	regionRegex   = regexp.MustCompile(`(CTGP|Eur/2|Jap/0|Ame/1)`)
+	roomTypeRegex  = regexp.MustCompile(`(Private|Continental|Worldwide) room`)
+	regionRegex    = regexp.MustCompile(`(CTGP|Eur/2|Jap/0|Ame/1)`)
+	gameStatsRegex = regexp.MustCompile(`<tr class="tr\d+"><td title="[^"]+">(\w+).+\s+.+> *(\d+(?: k)?|—) *<.+> *(\d+(?: k)?|—) *<.+> *(\d+(?: k)?|—) *<`)
+
+	allowedIDs = []string{
+		"ADME",
+	}
 )
 
 // Update function fetches new data from origin API and updates internal cache
@@ -104,5 +102,57 @@ func (c *Cache) Update() {
 			c.Mkw.Data.Regions.Ame++
 		}
 	}
-
+	gameStatsResp, err := http.Get("https://wiimmfi.de/stat?m=28")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer gameStatsResp.Body.Close()
+	gameStatsBytes, err := ioutil.ReadAll(gameStatsResp.Body)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	gameStatsBody := string(gameStatsBytes)
+	// Game stats
+	gameStatsMatches := gameStatsRegex.FindAllStringSubmatch(gameStatsBody, -1)
+	//gameStatsMatches := gameStatsRegex.FindAllStringSubmatch(test, -1)
+	for _, el := range gameStatsMatches {
+		var profiles, online, logins int
+		if el[2] == "—" {
+			profiles = 0
+		} else {
+			_profiles, err := strconv.Atoi(el[2])
+			profiles = _profiles
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+		if el[3] == "—" {
+			online = 0
+		} else {
+			_online, err := strconv.Atoi(el[3])
+			online = _online
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+		if el[4] == "—" {
+			logins = 0
+		} else {
+			_logins, err := strconv.Atoi(el[4])
+			logins = _logins
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+		c.Games[el[1]] = Game{
+			Data: GameData{
+				Logins:        logins,
+				Online:        online,
+				TotalProfiles: profiles,
+			},
+		}
+		fmt.Println(profiles, online, logins)
+	}
 }
