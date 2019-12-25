@@ -25,9 +25,14 @@ func main() {
 		fmt.Fprintf(w, "unofficial wiimmfi api v%s\n\nfind source code/api documentation on github: %s\nsupport on discord: y21#0909", version, "https://github.com/y21/wiimmfi-api")
 	})
 
-	router.HandleFunc("/api/"+apiVersion+"/mkw/overview", func(w http.ResponseWriter, r *http.Request) {
+	router.HandleFunc("/api/"+apiVersion+"/{game}/overview", func(w http.ResponseWriter, r *http.Request) {
+		params := mux.Vars(r)
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(&httpCache.Mkw.Data.Rooms)
+		if params["game"] == "mkw" {
+			json.NewEncoder(w).Encode(&httpCache.Mkw.Data.Rooms)
+		} else {
+			json.NewEncoder(w).Encode(httpCache.Games[params["game"]].Data)
+		}
 	})
 
 	router.HandleFunc("/api/"+apiVersion+"/mkw/regions", func(w http.ResponseWriter, r *http.Request) {
