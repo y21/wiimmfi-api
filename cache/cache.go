@@ -153,6 +153,5 @@ func (c *Cache) Update() {
 				TotalProfiles: profiles,
 			},
 		}
-		fmt.Println(profiles, online, logins)
 	}
 }
