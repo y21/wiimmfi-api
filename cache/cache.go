@@ -64,7 +64,11 @@ var (
 
 // Update function fetches new data from origin API and updates internal cache
 func (c *Cache) Update() {
-	resp, err := http.Get("https://wiimmfi.de/mkw")
+
+	req, err := http.NewRequest("GET", "https://wiimmfi.de/stats/mkw", nil); 
+	req.Header.Add("User-Agent", "Unofficial Wiimmfi API by y21 - github.com/y21/wiimmfi-api")
+	cl := &http.Client{}
+	resp, err := cl.Do(req)
 	if err != nil {
 		fmt.Printf("error while requesting wiimmfi.de/mkw: %v", err)
 		return
