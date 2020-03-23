@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"regexp"
 	"strconv"
+	"strings"
 )
 
 // MkwGameData represents game data
@@ -55,17 +56,33 @@ type Cache struct {
 var (
 	roomTypeRegex  = regexp.MustCompile(`(Private|Continental|Worldwide) room`)
 	regionRegex    = regexp.MustCompile(`(CTGP|Eur/2|Jap/0|Ame/1)`)
-	gameStatsRegex = regexp.MustCompile(`<tr class="tr\d+"><td title="[^"]+">(\w+).+\s+.+> *(\d+(?: k)?|—) *<.+> *(\d+(?: k)?|—) *<.+> *(\d+(?: k)?|—) *<`)
+	gameStatsRegex = regexp.MustCompile(`<tr class="tr\d"><td title="[@\w]+">(\w+)<\/td>(?:<[^\>]+>| )+([^<]+).+\s+[^—\d]+(\d+(?: k)?|—)[^—\d]+(\d+(?: k)?|—)[^—\d]+(\d+(?: k)?|—)`)
 
 	allowedIDs = []string{
 		"ADME",
 	}
 )
 
+func ParseValue(toParse string) int {
+	if len(toParse) < 1 || []rune(toParse)[0] == '—' {
+		return 0
+	}
+
+
+	num, err := strconv.ParseInt(strings.ReplaceAll(strings.ReplaceAll(toParse, " ", ""), "k", "000"), 10, 32)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return int(num)
+}
+
 // Update function fetches new data from origin API and updates internal cache
 func (c *Cache) Update() {
 
-	req, err := http.NewRequest("GET", "https://wiimmfi.de/stats/mkw", nil); 
+	req, err := http.NewRequest("GET", "https://wiimmfi.de/stats/mkw", nil)
+	if err != nil {
+		fmt.Println(err)
+	}
 	req.Header.Add("User-Agent", "Unofficial Wiimmfi API by y21 - github.com/y21/wiimmfi-api")
 	cl := &http.Client{}
 	resp, err := cl.Do(req)
@@ -106,6 +123,8 @@ func (c *Cache) Update() {
 			c.Mkw.Data.Regions.Ame++
 		}
 	}
+
+
 	gameStatsResp, err := http.Get("https://wiimmfi.de/stat?m=28")
 	if err != nil {
 		fmt.Println(err)
@@ -120,41 +139,12 @@ func (c *Cache) Update() {
 	gameStatsBody := string(gameStatsBytes)
 	// Game stats
 	gameStatsMatches := gameStatsRegex.FindAllStringSubmatch(gameStatsBody, -1)
-	//gameStatsMatches := gameStatsRegex.FindAllStringSubmatch(test, -1)
-	for _, el := range gameStatsMatches {
-		var profiles, online, logins int
-		if el[2] == "—" {
-			profiles = 0
-		} else {
-			_profiles, err := strconv.Atoi(el[2])
-			profiles = _profiles
-			if err != nil {
-				fmt.Println(err)
-			}
-		}
-		if el[3] == "—" {
-			online = 0
-		} else {
-			_online, err := strconv.Atoi(el[3])
-			online = _online
-			if err != nil {
-				fmt.Println(err)
-			}
-		}
-		if el[4] == "—" {
-			logins = 0
-		} else {
-			_logins, err := strconv.Atoi(el[4])
-			logins = _logins
-			if err != nil {
-				fmt.Println(err)
-			}
-		}
-		c.Games[el[1]] = Game{
-			Data: GameData{
-				Logins:        logins,
-				Online:        online,
-				TotalProfiles: profiles,
+	for _, match := range gameStatsMatches {
+		c.Games[strings.ToLower(match[1])] = Game {
+			Data: GameData {
+				TotalProfiles: ParseValue(match[3]),
+				Online: ParseValue(match[4]),
+				Logins: ParseValue(match[5]),
 			},
 		}
 	}
