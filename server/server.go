@@ -31,13 +31,24 @@ func main() {
 	router.HandleFunc("/api/" + apiVersion + "/{game}/overview", func(w http.ResponseWriter, r *http.Request) {
 		params := mux.Vars(r)
 		w.Header().Set("Content-Type", "application/json")
+		game, ok := httpCache.Games[params["game"]]
 		var err error
-		if params["game"] == "mkw" {
-			err = json.NewEncoder(w).Encode(&httpCache.Mkw.Data.Rooms)
+		if !ok {
+			err = json.NewEncoder(w).Encode(map[string]string {
+				"message": "Game not found",
+			})
 		} else {
-			err = json.NewEncoder(w).Encode(httpCache.Games[params["game"]].Data)
+			err = json.NewEncoder(w).Encode(game)
 		}
 
+		if err != nil {
+			fmt.Println(err)
+		}
+	})
+	
+	router.HandleFunc("/api/" + apiVersion + "/mkw/rooms", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		err := json.NewEncoder(w).Encode(&httpCache.Mkw.Data.Rooms)
 		if err != nil {
 			fmt.Println(err)
 		}
