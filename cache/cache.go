@@ -99,6 +99,10 @@ func (c *Cache) Update() {
 	bodyStr := string(bytes)
 	// Room types
 	roomTypes := roomTypeRegex.FindAllStringSubmatch(bodyStr, -1)
+	c.Mkw.Data.Rooms.Worldwides = 0
+	c.Mkw.Data.Rooms.Privates = 0
+	c.Mkw.Data.Rooms.Continentals = 0
+	
 	for _, el := range roomTypes {
 		switch el[1] {
 		case "Worldwide":
@@ -111,6 +115,11 @@ func (c *Cache) Update() {
 	}
 	// Regions
 	regions := regionRegex.FindAllString(bodyStr, -1)
+	c.Mkw.Data.Regions.CTGP = 0
+	c.Mkw.Data.Regions.Eur = 0
+	c.Mkw.Data.Regions.Jap = 0
+	c.Mkw.Data.Regions.Ame = 0
+	
 	for _, el := range regions {
 		switch el {
 		case "CTGP":
